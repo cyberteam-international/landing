@@ -8,10 +8,13 @@
 .hero_bg{
   // background-image: url('https://wallpapercave.com/wp/wp11589509.png');
   background-image: url(../img/hero/hero_bg.jpg);
-  // background-attachment: fixed;
-  // background-position: center;
-  // background-repeat: no-repeat;
+  background-position: center;
+  background-repeat: no-repeat;
   background-size: cover;
+
+  @supports not (-webkit-touch-callout: none) {
+    background-attachment: fixed;
+  }
 
   height: 100%;
   width: 100%;
@@ -262,10 +265,14 @@
 .team_bg{
   
   background-image: url(../img/team-bg.jpg);
-  background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+
+  @supports not (-webkit-touch-callout: none) {
+    background-attachment: fixed;
+  }
+
   height: 100%;
   width: 100%;
   position: absolute;
@@ -429,10 +436,14 @@
   position: relative;
   .callto_bg{
     background-image: url(../img/callto-bg.jpg);
-    background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+
+    @supports not (-webkit-touch-callout: none) {
+      background-attachment: fixed;
+    }
+
     height: 100%;
     width: 100%;
     position: absolute;
