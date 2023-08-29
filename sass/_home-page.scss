@@ -290,6 +290,12 @@
     }
   }
 
+  @media (max-width: 992px) {
+    .team__item__text {
+      bottom: 0;
+    }
+  }
+
   &.team__item--second {
     margin-top: -60px;
   }
