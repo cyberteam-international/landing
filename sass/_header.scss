@@ -7,8 +7,9 @@
     top: 0;
     width: 100%;
     background: transparent;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    //border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     z-index: 9;
+   
 }
 
 .header__logo {
@@ -26,12 +27,13 @@
 .header__nav__option {
     text-align: right;
     padding: 28px 0px;
+    //display: none;
 }
 
 .header__nav__menu {
     display: inline-block;
     margin-right: 45px;
-
+    display: none;
     ul {
 
         li {

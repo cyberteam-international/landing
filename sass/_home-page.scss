@@ -38,7 +38,6 @@
 }
 
 .hero__text {
-
   span {
     color: $white-color;
     display: block;
@@ -261,6 +260,7 @@
 .team {
   padding-bottom: 90px;
   position: relative;
+  background: #100028;
 }
 .team_bg{
   
@@ -278,7 +278,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  filter: brightness(80%);
+  filter: brightness(60%);
 }
 
 .section-title.team__title {
@@ -289,7 +289,7 @@
   height: 390px;
   position: relative;
   overflow: hidden;
-
+  border-radius: 20px;
   &:hover {
 
     .team__item__text {
@@ -302,18 +302,10 @@
       bottom: 0;
     }
   }
+}
 
-  &.team__item--second {
-    margin-top: -60px;
-  }
-
-  &.team__item--third {
-    margin-top: -120px;
-  }
-
-  &.team__item--four {
-    margin-top: -180px;
-  }
+.swiper-pagination{
+  bottom: -40px !important;
 }
 
 .team__item__text {
@@ -336,6 +328,9 @@
     content: "";
     z-index: -1;
   }
+
+
+  
 
   h4 {
     font-size: 22px;
@@ -366,10 +361,8 @@
   }
 }
 
-.team__btn {
-  position: absolute;
-  right: 0;
-  bottom: 0;
+.team__btn{
+  margin-top: 30px;
 }
 
 /*---------------------
@@ -380,52 +373,8 @@
   padding-bottom: 80px;
 }
 
-.blog__item {
 
-  &.latest__item {
-    margin-bottom: 0;
 
-      &:hover {
-        border: 1px solid #222222!important;
-        background: url(../img/blog/blog-1.jpg);
-        background-size: cover;
-    }
-  }
-}
-
-.latest__slider {
-
-  &.owl-carousel {
-
-    .owl-item {
-
-      .col-lg-4 {
-        max-width: 100%;
-      }
-    }
-
-    .owl-dots {
-      text-align: center;
-      padding-top: 35px;
-
-      button {
-        height: 8px;
-        width: 8px;
-        background: rgba(255, 255, 255, 0.2);
-        border-radius: 50%;
-        margin-right: 10px;
-
-        &.active {
-          background: $primary-color;
-        }
-
-        &:last-child {
-          margin-right: 0;
-        }
-      }
-    }
-  }
-}
 
 /*---------------------
   Call To Active
@@ -486,4 +435,14 @@
     display: inline-block;
     padding: 14px 32px 12px;
   }
+}
+
+
+.modal {
+  position: relative;
+  background: #FFF;
+  padding: 20px;
+  width: auto;
+  max-width: 500px;
+  margin: 20px auto;
 }

@@ -3,6 +3,7 @@
 -----------------------*/
 .portfolio {
   background: #100028;
+  padding: 0;
 }
 
 .portfolio__filter {
@@ -29,46 +30,44 @@
   }
 }
 
-.portfolio__item {
-  margin-bottom: 35px;
 
+.portfolio__list{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+
+.portfolio__item {
+  flex-basis:33%;
+  height: 33vw;
+  position: relative;
+  overflow: hidden;
   &:hover {
 
     .portfolio__item__text {
-
-      h4 {
-
-        &:after {
-          opacity: 1;
-        }
+      bottom: 0;
+      h4:after{
+        opacity: 1;
       }
     }
   }
 }
 
 .portfolio__item__video {
-  height: 360px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 28px;
-
-  .play-btn {
-    display: inline-block;
-    color: $white-color;
-    font-size: 20px;
-    height: 50px;
-    width: 50px;
-    line-height: 50px;
-    text-align: center;
-    border: 1px solid rgba(255, 255, 255, 0.7);
-    border-radius: 50%;
-  }
+  height: 100%;
+  width: 100%;
 }
+
+
 
 .portfolio__item__text {
   text-align: center;
+  position: absolute;
+  left: 0;
+  bottom: -500px;
+  width: 100%;
 
+  @include transition(all, .5s);
   h4 {
     color: $white-color;
     display: inline-block;
@@ -123,6 +122,18 @@
         }
       }
     }
+  }
+
+
+  &:before {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background: url(../img/team/team-hover.png);
+    content: "";
+    z-index: -1;
   }
 
   span {
