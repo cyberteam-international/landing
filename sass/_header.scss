@@ -127,25 +127,23 @@
     }
 }
 
+
 .header__nav__social {
     display: inline-block;
     position: relative;
     padding-left: 50px;
 
-    &:before {
-        position: absolute;
-        left: 0;
-        top: 4px;
-        height: 13px;
-        width: 1px;
-        background: rgba(225, 225, 225, 0.2);
-        content: "";
-    }
-
     a {
-        color: $white-color;
+        display: inline-block;
         font-size: 15px;
-        margin-right: 18px;
+        color: $white-color;
+        height: 40px;
+        width: 40px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        line-height: 44px;
+        text-align: center;
+        margin-right: 6px;
 
         &:last-child {
             margin-right: 0;
