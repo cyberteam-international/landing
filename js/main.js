@@ -118,14 +118,29 @@
 		}
 
 		function getServicesFromOffsetX() {
-			const SERVICES_CARD = servicesList.querySelector('.services__item');
-			const OFFSET_CARDS_COUNT = 2;
+			if (window.innerWidth <= 610) return 0;
 
-			return OFFSET_CARDS_COUNT * SERVICES_CARD.getBoundingClientRect().width
+			const SERVICES_CARD = servicesList.querySelector('.services__item');
+			let offsetCardsCount = 2;
+
+			return offsetCardsCount * SERVICES_CARD.getBoundingClientRect().width
 		}
 
 		function getSrevicesToOffsetX() {
-			return 0 - (getServicesListScrollTriggerEnd(-2));
+			let cardsCountModifer = -2;
+			if (window.innerWidth <= 610) {
+				cardsCountModifer = -0.5;
+			}
+
+			return 0 - (getServicesListScrollTriggerEnd(cardsCountModifer));
+		}
+
+		function getServicesOffsetStartModifier() {
+			const cardsHeight = servicesList.getBoundingClientRect().height;
+			const card = servicesList.querySelector('.services__item');
+			const cardMarginBottom = +window.getComputedStyle(card).marginBottom.replace('px', '');
+			const offsetModifier = (window.innerHeight - cardsHeight + cardMarginBottom) / 2;
+			return offsetModifier;
 		}
 
 		const servicesCardsTimeline = gsap.timeline({
@@ -134,7 +149,7 @@
 				trigger: servicesList, // Установите триггером ваш контейнер галереи
 				scrub: true, // Разрешите pin scrub
 				pin: true, // Закрепите элемент в начале контейнера
-				start: "top-=200 top", // Начало анимации pin scrub
+				start: `top-=${getServicesOffsetStartModifier()} top`, // Начало анимации pin scrub
 				end: `bottom+=${getServicesListScrollTriggerEnd()} bottom`, // Конец анимации pin scrub, основанный на ширине контейнера
 			}
 		});

@@ -33,6 +33,10 @@
 }
 
 .services__item {
+	display: inline-flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: flex-start;
     width: 365px;
     flex-basis: 31%;
     flex-shrink: 0;
@@ -76,6 +80,7 @@
         text-transform: uppercase;
         display: inline-block;
         padding: 14px 32px 12px;
+				margin-top: auto;
       }
 	@media (max-width: 610px) {
 		flex-basis: 90%;
