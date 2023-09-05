@@ -110,6 +110,11 @@ ol {
 -----------------------*/
 .section-title {
   margin-bottom: 50px;
+	// display: flex;
+	// justify-content: center;
+	// align-items: center;
+	// flex-direction: column;
+	// min-height: 50vh;
 
   &.center-title {
     text-align: center;
@@ -149,6 +154,10 @@ ol {
       content: "";
     }
   }
+}
+
+.section-title--animated {
+	min-height: 50vh;
 }
 
 .set-bg {

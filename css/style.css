@@ -142,6 +142,10 @@ ol {
   content: "";
 }
 
+.section-title--animated {
+  min-height: 50vh;
+}
+
 .set-bg {
   background-repeat: no-repeat;
   background-size: cover;
@@ -1170,6 +1174,7 @@ ol {
 .portfolio {
   background: #100028;
   padding: 0;
+  margin-top: -100vh;
 }
 
 .portfolio__filter {

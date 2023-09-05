@@ -129,7 +129,7 @@
 		}
 
 		function getSrevicesToOffsetX() {
-			let cardsCountModifer = -2;
+			let cardsCountModifer = -1.35;
 			if (window.innerWidth <= 610) {
 				cardsCountModifer = -0.5;
 			}
@@ -152,7 +152,7 @@
 				scrub: true, // Разрешите pin scrub
 				pin: true, // Закрепите элемент в начале контейнера
 				start: `top-=${getServicesOffsetStartModifier()} top`, // Начало анимации pin scrub
-				end: `bottom+=${getServicesListScrollTriggerEnd()} bottom`, // Конец анимации pin scrub, основанный на ширине контейнера
+				end: `bottom+=${getServicesListScrollTriggerEnd(2)} bottom`, // Конец анимации pin scrub, основанный на ширине контейнера
 			}
 		});
 
@@ -160,14 +160,45 @@
 		//#endregion gsapHorizontalScroll
 
 
+		//#region scrubTitles
+
+		const sectionTitles = document.querySelectorAll('.section-title');
+		sectionTitles.forEach((title, index) => {
+			console.log(title.innerText);
+			let timelineConfig = {
+				scrollTrigger: {
+					markers: true,
+					trigger: title,
+					scrub: true,
+					pin: true,
+					start: `top center`,
+					end: `bottom-=50% center`,
+				}
+			}
+			const timeline = gsap.timeline(timelineConfig);
+
+			timeline.fromTo(title,
+				{
+					alpha: 0,
+					scale: 0.4,
+					// yPercent: -150
+					yPercent: 0
+				},
+				{
+					alpha: 1,
+					scale: 1,
+					yPercent: 0
+				}
+			);
+		})
+
+		//#endregion scrubTitles
+
+
 		//#region sectionParallax
 
 		/**
-		 *
-		 * 1. получить секци у которых есть класс b_parallax
-		 * 2. В в этой секции получить элемент который будет фоном b_parallax__bg
-		 * 3. Получить размеры высоту секции
-		 *
+		 * Parallax bg on sections
 		 */
 
 		function isSectionFirstScreen(section) {
