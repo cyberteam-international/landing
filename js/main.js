@@ -98,6 +98,8 @@
     });
 
 
+		//#region gsapHorizontalScroll
+
 		/**
 		 *
 		 * Services carousel
@@ -155,5 +157,54 @@
 		});
 
 		servicesCardsTimeline.fromTo(servicesList, {x: getServicesFromOffsetX}, {x: getSrevicesToOffsetX})
+		//#endregion gsapHorizontalScroll
+
+
+		//#region sectionParallax
+
+		/**
+		 *
+		 * 1. получить секци у которых есть класс b_parallax
+		 * 2. В в этой секции получить элемент который будет фоном b_parallax__bg
+		 * 3. Получить размеры высоту секции
+		 *
+		 */
+
+		function isSectionFirstScreen(section) {
+			return section.offsetTop < (window.innerHeight / 2);
+		}
+
+		const parallaxSections  = document.querySelectorAll('.b_parallax');
+		parallaxSections.forEach((section, index) => {
+			const bg = section.querySelector('.b_parallax__bg');
+
+			let sectionFirstScreen = isSectionFirstScreen(section)
+			let timelineConfig = {
+				scrollTrigger: {
+					trigger: section,
+					scrub: true,
+					start: `top bottom`,
+					end: `bottom+=20% top`,
+				}
+			}
+
+			if (index == 0) {
+				// timelineConfig.scrollTrigger.markers = true;
+			}
+
+			if (sectionFirstScreen) {
+				timelineConfig.scrollTrigger.start = 'top top';
+				timelineConfig.scrollTrigger.end = 'bottom+=40% top';
+			}
+
+			const timeline = gsap.timeline(timelineConfig);
+
+			let sectionFrom = sectionFirstScreen ? 0 : -70;
+			let sectionTo = window.innerWidth <= 610 ? 20 : 50;
+
+			timeline.fromTo(bg, {yPercent: sectionFrom}, {yPercent: sectionTo});
+		})
+
+		//#endregion sectionParallax
 
 })(jQuery);
