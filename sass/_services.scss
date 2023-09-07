@@ -6,6 +6,10 @@
     padding-bottom: 60px;
     padding-top: 110px;
 		overflow: hidden;
+
+		@media (max-width: 610px) {
+			padding-top: 310px;
+		}
 }
 
 .services__title {
@@ -37,6 +41,7 @@
 	flex-direction: column;
 	align-items: flex-start;
 	justify-content: flex-start;
+	transform: translateY(-80%);
     width: 365px;
     flex-basis: 31%;
     flex-shrink: 0;
@@ -85,6 +90,7 @@
 	@media (max-width: 610px) {
 		flex-basis: 90%;
 		margin-right: 20px;
+	transform: translateY(-110%);
 	}
 }
 

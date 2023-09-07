@@ -123,7 +123,7 @@
 			if (window.innerWidth <= 610) return 0;
 
 			const SERVICES_CARD = servicesList.querySelector('.services__item');
-			let offsetCardsCount = 2;
+			let offsetCardsCount = 4;
 
 			return offsetCardsCount * SERVICES_CARD.getBoundingClientRect().width
 		}
@@ -141,7 +141,7 @@
 			const cardsHeight = servicesList.getBoundingClientRect().height;
 			const card = servicesList.querySelector('.services__item');
 			const cardMarginBottom = +window.getComputedStyle(card).marginBottom.replace('px', '');
-			const offsetModifier = (window.innerHeight - cardsHeight + cardMarginBottom) / 2;
+			const offsetModifier = (window.innerHeight - cardsHeight + cardMarginBottom) * 1.5;
 			return offsetModifier;
 		}
 
@@ -153,7 +153,8 @@
 				pin: true, // Закрепите элемент в начале контейнера
 				start: `top-=${getServicesOffsetStartModifier()} top`, // Начало анимации pin scrub
 				end: `bottom+=${getServicesListScrollTriggerEnd(2)} bottom`, // Конец анимации pin scrub, основанный на ширине контейнера
-			}
+			},
+			startTrigger: '.services',
 		});
 
 		servicesCardsTimeline.fromTo(servicesList, {x: getServicesFromOffsetX}, {x: getSrevicesToOffsetX})
@@ -171,13 +172,17 @@
 					scrub: true,
 					pin: true,
 					start: `top-=10% center`,
-					end: `bottom-=50% center`,
+					end: `bottom+=60% center`,
 				}
 			}
 
 			if (index == 0) {
 				timelineConfig.scrollTrigger.start = `top-=50% center`;
-				timelineConfig.scrollTrigger.end = `bottom-=80% center`;
+				timelineConfig.scrollTrigger.end = `bottom+=20% center`;
+				if (window.innerWidth <= 610) {
+					timelineConfig.scrollTrigger.start = `top-=120% center`;
+					timelineConfig.scrollTrigger.end = `bottom-=70% center`;
+				}
 			}
 
 
@@ -190,15 +195,37 @@
 			}
 			if (index == 0) {
 				fromConfig.yPercent = -60;
+
 			}
+
+			let appearToConfig = {
+				alpha: 1,
+				scale: 1,
+				yPercent: -50
+			}
+			if (index == 0) {
+				if (window.innerWidth <= 610) {
+					appearToConfig.yPercent = -130;
+				}
+			}
+
+			let exitingToConfig = {
+				alpha: 0,
+				scale: 0,
+				yPercent: -80,
+			}
+			if (index == 0) {
+				if (window.innerWidth <= 610) {
+					exitingToConfig.yPercent =  -180
+				}
+			}
+
 			timeline.fromTo(title,
 				fromConfig,
-				{
-					alpha: 1,
-					scale: 1,
-					yPercent: -20
-				}
+				appearToConfig,
 			);
+			timeline.to(title, exitingToConfig);
+			// }, '>=2');
 		})
 
 		//#endregion scrubTitles
