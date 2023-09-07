@@ -131,7 +131,7 @@
 		function getSrevicesToOffsetX() {
 			let cardsCountModifer = -1.35;
 			if (window.innerWidth <= 610) {
-				cardsCountModifer = -0.5;
+				cardsCountModifer = -0.7;
 			}
 
 			return 0 - (getServicesListScrollTriggerEnd(cardsCountModifer));
@@ -164,30 +164,39 @@
 
 		const sectionTitles = document.querySelectorAll('.section-title');
 		sectionTitles.forEach((title, index) => {
-			console.log(title.innerText);
 			let timelineConfig = {
 				scrollTrigger: {
-					markers: true,
+					// markers: true,
 					trigger: title,
 					scrub: true,
 					pin: true,
-					start: `top center`,
+					start: `top-=10% center`,
 					end: `bottom-=50% center`,
 				}
 			}
+
+			if (index == 0) {
+				timelineConfig.scrollTrigger.start = `top-=50% center`;
+				timelineConfig.scrollTrigger.end = `bottom-=80% center`;
+			}
+
+
 			const timeline = gsap.timeline(timelineConfig);
 
-			timeline.fromTo(title,
-				{
+			let fromConfig = {
 					alpha: 0,
 					scale: 0.4,
-					// yPercent: -150
 					yPercent: 0
-				},
+			}
+			if (index == 0) {
+				fromConfig.yPercent = -60;
+			}
+			timeline.fromTo(title,
+				fromConfig,
 				{
 					alpha: 1,
 					scale: 1,
-					yPercent: 0
+					yPercent: -20
 				}
 			);
 		})
