@@ -1102,7 +1102,7 @@ ol {
   .services__item {
     flex-basis: 90%;
     margin-right: 20px;
-    transform: translateY(-110%);
+    transform: none;
   }
 }
 
