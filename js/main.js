@@ -15,8 +15,9 @@
         Preloader
     --------------------*/
     $(window).on('load', function () {
-        $(".loader").fadeOut();
-        $("#preloder").delay(200).fadeOut("slow");
+
+				const prelaoder = document.querySelector('.preloader');
+				prelaoder.classList.add('preloader--hidden')
 
         /*------------------
             Portfolio filter
@@ -34,11 +35,11 @@
     /*------------------
         Background Set
     --------------------*/
-    $('.set-bg').each(function () {
-        var bg = $(this).data('setbg');
-        $(this).css('background-image', 'url(' + bg + ')');
-    });
-
+		const setBgItems = document.querySelectorAll('.set-bg');
+		setBgItems.forEach(item => {
+			const bg = item.dataset.setbg;
+			item.style.backgroundImage = `url(${bg})`;
+		})
 
 
     /*------------------
@@ -49,15 +50,6 @@
         allowParentLinks: true
     });
 
-
-
-
-    /*------------------
-        Video Popup
-    --------------------*/
-    $('.video-popup').magnificPopup({
-        type: 'iframe'
-    });
 
 
 
