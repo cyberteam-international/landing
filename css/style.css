@@ -9579,15 +9579,12 @@ ol {
   margin-right: 0;
 }
 
-.portfolio__list {
-  display: flex;
-  flex-wrap: wrap;
-}
-
 .portfolio__item {
   flex-basis: 33%;
+  width: 33%;
   height: 33vw;
   position: relative;
+  display: block;
   overflow: hidden;
 }
 .portfolio__item:hover .portfolio__item__text {

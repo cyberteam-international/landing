@@ -14,23 +14,54 @@
     /*------------------
         Preloader
     --------------------*/
-    $(window).on('load', function () {
+	window.addEventListener('DOMContentLoaded', (event) => {
 
-				const prelaoder = document.querySelector('.preloader');
-				prelaoder.classList.add('preloader--hidden')
+		const prelaoder = document.querySelector('.preloader');
+		prelaoder.classList.add('preloader--hidden')
 
-        /*------------------
-            Portfolio filter
-        --------------------*/
-        $('.portfolio__filter li').on('click', function () {
-            $('.portfolio__filter li').removeClass('active');
-            $(this).addClass('active');
-        });
-        if ($('.portfolio__gallery').length > 0) {
-            var containerEl = document.querySelector('.portfolio__gallery');
-            var mixer = mixitup(containerEl);
-        }
-    });
+
+		/*------------------
+				Portfolio filter
+		--------------------*/
+
+		const portfolioGallery = document.querySelector('.portfolio__list');
+
+		if (portfolioGallery) {
+		  const iso = new Isotope(portfolioGallery, {
+		    itemSelector: '.portfolio__item',
+		    layoutMode: 'fitRows'
+		  });
+
+		  // Функция для фильтрации по категории
+		  function filterItems(category) {
+				if (category == 'all') {
+					iso.arrange({
+						filter: '.portfolio__item',
+					});
+					return;
+				}
+		    iso.arrange({
+		      filter: `[data-category="${category}"]`
+		    });
+		  }
+
+		  // Привязка события клика на элементы фильтрации
+		  const filterButtons = document.querySelectorAll('.portfolio__filter li');
+		  if (filterButtons) {
+		    filterButtons.forEach((button) => {
+		      button.addEventListener('click', () => {
+		      	filterButtons.forEach(filterButton => {
+		      		filterButton.classList.remove('active');
+		      	});
+		      	button.classList.add('active');
+		        const category = button.dataset.category;
+		        filterItems(category);
+		      });
+		    });
+		  }
+			//*/
+		}
+	});
 
     /*------------------
         Background Set
@@ -38,7 +69,7 @@
 		const setBgItems = document.querySelectorAll('.set-bg');
 		setBgItems.forEach(item => {
 			const bg = item.dataset.setbg;
-			item.style.backgroundImage = `url(${bg})`;
+			item.style.backgroundImage = `url(./${bg})`;
 		})
 
 
