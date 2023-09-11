@@ -1,0 +1,66 @@
+.burger {
+	margin: 5px 5px 6px;
+	text-decoration: none;
+	text-shadow: 0 1px 1px rgba(255,255,255,.75);
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	background-color: #222;
+
+	position: relative;
+	display: block;
+	vertical-align: middle;
+	float: right;
+	padding: .438em .625em;
+	line-height: 1.125em;
+
+	box-sizing: border-box;
+
+	@media (min-width: 992px) {
+		display: none;
+	}
+}
+
+.burger .slicknav_menutxt {
+		display: block;
+    line-height: 1.188em;
+    float: left;
+    color: #fff;
+    font-weight: 700;
+    text-shadow: 0 1px 3px #000;
+}
+
+.burger .slicknav_icon {
+		float: left;
+    width: 1.125em;
+    height: .875em;
+    margin: .188em 0 0 .438em;
+		margin: 0;
+}
+
+
+.burger .slicknav_icon-bar {
+	display: block;
+    width: 1.125em;
+    height: .125em;
+    -webkit-border-radius: 1px;
+    -moz-border-radius: 1px;
+    border-radius: 1px;
+    -webkit-box-shadow: 0 1px 0 rgba(0,0,0,.25);
+    -moz-box-shadow: 0 1px 0 rgba(0,0,0,.25);
+    box-shadow: 0 1px 0 rgba(0,0,0,.25);
+		background-color: #fff;
+}
+
+.burger .slicknav_icon:before {
+		background: 0 0;
+    width: 1.125em;
+    height: .875em;
+    display: block;
+    content: "";
+    position: absolute;
+}
+
+.burger .slicknav_icon-bar+.slicknav_icon-bar {
+    margin-top: .188em;
+}

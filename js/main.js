@@ -9,8 +9,6 @@
 
 'use strict';
 
-(function ($) {
-
     /*------------------
         Preloader
     --------------------*/
@@ -76,10 +74,15 @@
     /*------------------
 		Navigation
 	--------------------*/
-    $(".mobile-menu").slicknav({
-        prependTo: '#mobile-menu-wrap',
-        allowParentLinks: true
-    });
+    // $(".mobile-menu").slicknav({
+    //     prependTo: '#mobile-menu-wrap',
+    //     allowParentLinks: true
+    // });
+		const burger = document.querySelector('.burger');
+		const header = document.querySelector('.header')
+		burger.addEventListener('click', () => {
+			header.classList.toggle('header--opened')
+		})
 
 
 
@@ -295,6 +298,30 @@
 			timeline.fromTo(bg, {yPercent: sectionFrom}, {yPercent: sectionTo});
 		})
 
-		//#endregion sectionParallax
+		function getTopOffset(percents = 100) {
+				return window.innerHeight / 100 * percents;
+		}
 
-})(jQuery);
+		function scrollTosectionToScroll(percents = 9) {
+				const linkElems = document.querySelectorAll('[href^="#"]')
+				if (!linkElems) return;
+				for (let i = 0; i < linkElems.length; i++) {
+						const link = linkElems[i];
+						link.addEventListener('click', (e) => {
+								e.preventDefault()
+								let href = link.getAttribute('href')
+								if (!href || href == "#") return;
+								let sectionToScroll = document.querySelector(href)
+								if (!sectionToScroll) return;
+
+								window.scroll({
+										top: sectionToScroll.getBoundingClientRect().top + pageYOffset - getTopOffset(percents),
+										left: 0,
+										behavior: 'smooth'
+								})
+						})
+				}
+		}
+		scrollTosectionToScroll(0);
+
+		//#endregion sectionParallax

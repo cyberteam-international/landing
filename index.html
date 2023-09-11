@@ -17,7 +17,6 @@
     <!-- Css Styles -->
     <link rel="icon" type="image/x-icon" href="favicon.png">
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="css/swiper-bundle.min.css"/>
     <link rel="stylesheet" href="css/style.css" type="text/css">
 </head>
@@ -32,25 +31,30 @@
     <header class="header">
         <div class="container">
             <div class="row">
-                <div class="col-lg-2">
+                <div class="col-lg-2 header__top">
                     <div class="header__logo">
                         <a href="./index.html"><img src="img/logo.png" alt=""></a>
                     </div>
+										<button class="burger slicknav_collapsed">
+											<span class="slicknav_menutxt"></span>
+											<span class="slicknav_icon slicknav_no-text">
+												<span class="slicknav_icon-bar"></span>
+												<span class="slicknav_icon-bar"></span>
+												<span class="slicknav_icon-bar"></span>
+											</span>
+										</button>
                 </div>
-                <div class="col-lg-10">
+                <div class="col-lg-10 header__nav">
                     <div class="header__nav__option">
                         <nav class="header__nav__menu mobile-menu">
                             <ul>
-                                <li class="active"><a href="./index.html">Home</a></li>
-                                <li><a href="./services.html">Services</a></li>
-                                <li><a href="./portfolio.html">Portfolio</a></li>
-                                <li><a href="./portfolio.html">Team</a></li>
-                                <li><a href="./contact.html">Contacts</a></li>
+                                <li><a href="#services">Services</a></li>
+                                <li><a href="#portfolio">Portfolio</a></li>
+                                <li><a href="#team">Team</a></li>
+                                <li><a href="#contact">Contacts</a></li>
                             </ul>
                         </nav>
                         <div class="header__nav__social">
-                            <!-- <a href="#"><i class="fa fa-twitter"></i></a>
-                            <a href="#"><i class="fa fa-dribbble"></i></a> -->
                             <a href="https://t.me/cyberteaminternational" target="_blank"><i class="fa-brands fa-telegram"></i></a>
                             <a href="https://wa.me/+79922934408" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
                             <a href="https://instagram.com/cyberteam_international?igshid=MzRlODBiNWFlZA==" target="_blank"><i class="fa fa-instagram"></i></a>
@@ -58,7 +62,10 @@
                     </div>
                 </div>
             </div>
-            <div id="mobile-menu-wrap"></div>
+            <div id="mobile-menu-wrap">
+							<div class="slicknav_menu">
+							</div>
+						</div>
         </div>
     </header>
     <!-- Header End -->
@@ -87,7 +94,7 @@
 
 
     <!-- Services Section Begin -->
-    <section class="services spad">
+    <section class="services spad" id="services">
         <div class="container">
             <div class="row text-center">
                 <div class="services__title section-title section-title--animated">
@@ -209,7 +216,7 @@
 
 
     <!-- Portfolio Section Begin -->
-    <section class="portfolio spad">
+    <section class="portfolio spad" id="portfolio">
         <div class="container">
             <div class="row text-center">
                 <div class="services__title section-title section-title--animated">
@@ -318,7 +325,7 @@
 
 
     <!-- Team Section Begin -->
-    <section class="team spad">
+    <section class="team spad" id="team">
         <!-- <div class="team_bg"></div> -->
         <div class="container">
             <div class="row text-center">
@@ -411,7 +418,7 @@
     <!-- Call To Action Section End -->
 
     <!-- Call To Action Section Begin -->
-    <section class="contact spad">
+    <section class="contact spad" id="contact">
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
@@ -505,11 +512,7 @@
         </div>
     </div>
 
-    <!-- Js Plugins -->
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
     <script src="js/isotope.pkgd.min.js"></script>
-    <script src="js/jquery.slicknav.js"></script>
     <script src="js/kit.fontawesome.com_defc9ac31a.js" crossorigin="anonymous"></script>
     <script src="js/swiper-bundle.min.js"></script>
     <script src="js/gsap.min.js"></script>
