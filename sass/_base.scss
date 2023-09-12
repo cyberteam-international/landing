@@ -156,8 +156,18 @@ ol {
   }
 }
 
-.section-title--animated {
-	min-height: 50vh;
+.section-title-animated {
+	display: flex;
+	width: 100%;
+	// justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	min-height: 90vh;
+}
+
+.wrapper {
+	position: relative;
+	z-index: 1;
 }
 
 .set-bg {

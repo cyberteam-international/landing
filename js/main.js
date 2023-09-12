@@ -124,6 +124,7 @@
     });
 
 
+		gsap.registerPlugin(ScrollTrigger);
 		//#region gsapHorizontalScroll
 
 		/**
@@ -131,7 +132,7 @@
 		 * Services carousel
 		 *
 		 */
-		gsap.registerPlugin(ScrollTrigger);
+		/*
 
 		const servicesList = document.querySelector('.services__list');
 
@@ -184,12 +185,40 @@
 		});
 
 		servicesCardsTimeline.fromTo(servicesList, {x: getServicesFromOffsetX}, {x: getSrevicesToOffsetX})
+		*/
 		//#endregion gsapHorizontalScroll
 
 
 		//#region scrubTitles
 
-		const sectionTitles = document.querySelectorAll('.section-title');
+		const sectionTitles = document.querySelectorAll('.section-title-animated');
+		sectionTitles.forEach((title, index) => {
+			let timelineConfig = {
+				scrollTrigger: {
+					// markers: true,
+					trigger: title,
+					scrub: true,
+					pin: true,
+					start: `top-=20% center`,
+					end: `bottom bottom-=27%`,
+				}
+			}
+			const timeline = gsap.timeline(timelineConfig);
+			timeline.fromTo(
+				title.querySelector('.section-title'),
+				{
+					opacity: 0,
+					scale: 0.8,
+					yPercent: -300,
+				},
+				{
+					opacity: 1,
+					scale: 1,
+					yPercent: -100,
+				},
+			);
+		})
+		/*
 		sectionTitles.forEach((title, index) => {
 			let timelineConfig = {
 				scrollTrigger: {
@@ -254,6 +283,7 @@
 			// }, '>=2');
 		})
 
+		*/
 		//#endregion scrubTitles
 
 

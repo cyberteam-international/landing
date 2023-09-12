@@ -7,9 +7,13 @@
     padding-top: 110px;
 		overflow: hidden;
 
-		@media (max-width: 610px) {
-			padding-top: 310px;
-		}
+		// @media (max-width: 610px) {
+			// padding-top: 310px;
+		// }
+}
+.services__container {
+	z-index: 4;
+	position: relative;
 }
 
 .services__title {
@@ -34,6 +38,7 @@
     // overflow-x: scroll;
     flex-shrink: 0;
 		transform: translateX(calc(var(--scroll-progress) * 200%));
+		z-index: 4;
 }
 
 .services__item {
@@ -41,7 +46,7 @@
 	flex-direction: column;
 	align-items: flex-start;
 	justify-content: flex-start;
-	transform: translateY(-80%);
+	// transform: translateY(-80%);
     width: 365px;
     flex-basis: 31%;
     flex-shrink: 0;
