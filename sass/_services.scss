@@ -37,7 +37,6 @@
     // overflow-y: hidden;
     // overflow-x: scroll;
     flex-shrink: 0;
-		transform: translateX(calc(var(--scroll-progress) * 200%));
 		z-index: 4;
 }
 

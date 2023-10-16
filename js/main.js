@@ -125,17 +125,84 @@
 
 
 		gsap.registerPlugin(ScrollTrigger);
+
 		//#region gsapHorizontalScroll
 
 		/**
-		 *
 		 * Services carousel
-		 *
 		 */
+
+		const servicesGallery = document.querySelector('.services__gallery');
+		const servicesTimeline = gsap.timeline({
+				scrollTrigger: {
+					markers: true,
+					trigger: servicesGallery,
+					scrub: true,
+					pin: true,
+					start: `top-=20% center`,
+					end: `bottom+=${window.innerHeight * 2} bottom`,
+				}
+			}
+		);
+
+		function getSerivcesToOffsetX() {
+			const cards = [...document.querySelectorAll('.services__item')];
+			let marginRight = null;
+			const width = cards.reduce((total, card, index) => {
+				if (marginRight == null) {
+					marginRight = +window.getComputedStyle(card).marginRight.replace('px', '');
+				}
+
+				let cardWidth = card.getBoundingClientRect().width;
+				if (index === 0) {
+					cardWidth *= 2;
+				}
+
+				return total += cardWidth + marginRight;
+			}, 0)
+
+			return -width;
+		}
+
+		function getServicesFromOffsetX() {
+			const cards = [...document.querySelectorAll('.services__item')];
+			let marginRight = null;
+			let cardsCount = 3
+			if (window.innerWidth <= 610) {
+				cardsCount = 1
+			}
+			const width = cards.reduce((total, card, index) => {
+				if (index >= cardsCount) return total + 0;
+
+				if (marginRight == null) {
+					marginRight = +window.getComputedStyle(card).marginRight.replace('px', '');
+				}
+
+				let cardWidth = card.getBoundingClientRect().width;
+				if (index === 0) {
+					cardWidth *= 2;
+				}
+
+				return total += cardWidth + marginRight;
+			}, 0)
+
+			return width;
+		}
+
+		servicesTimeline.fromTo(
+			servicesGallery.querySelector('.services__list'),
+			{
+				yPercent: -60,
+				x: getServicesFromOffsetX()
+			},
+			{
+				yPercent: -70,
+				x: getSerivcesToOffsetX()
+			},
+			'<'
+		);
+
 		/*
-
-		const servicesList = document.querySelector('.services__list');
-
 		function getServicesListScrollTriggerEnd(lengthModifier = 0) {
 			const SERVICES_CARDS = [...servicesList.querySelectorAll('.services__item')];
 			if (SERVICES_CARDS.length === 0) {
@@ -214,7 +281,7 @@
 				{
 					opacity: 1,
 					scale: 1,
-					yPercent: -100,
+					yPercent: -190,
 				},
 			);
 		})
