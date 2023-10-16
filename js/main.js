@@ -9,6 +9,19 @@
 
 'use strict';
 
+const lenis = new Lenis()
+
+lenis.on('scroll', (e) => {
+	// console.log(e)
+})
+
+function raf(time) {
+	lenis.raf(time)
+	requestAnimationFrame(raf)
+}
+
+requestAnimationFrame(raf)
+
     /*------------------
         Preloader
     --------------------*/
@@ -133,14 +146,15 @@
 		 */
 
 		const servicesGallery = document.querySelector('.services__gallery');
+		const servicesCards = [...document.querySelectorAll('.services__item')];
 		const servicesTimeline = gsap.timeline({
 				scrollTrigger: {
 					markers: true,
 					trigger: servicesGallery,
-					scrub: true,
+					scrub: 0.5,
 					pin: true,
-					start: `top-=20% center`,
-					end: `bottom+=${window.innerHeight * 2} bottom`,
+					start: `center center`,
+					end: `+=${50 * servicesCards.length}%`,
 				}
 			}
 		);
@@ -167,12 +181,12 @@
 		function getServicesFromOffsetX() {
 			const cards = [...document.querySelectorAll('.services__item')];
 			let marginRight = null;
-			let cardsCount = 3
+			let cardsCount = 2;
 			if (window.innerWidth <= 610) {
 				cardsCount = 1
 			}
 			const width = cards.reduce((total, card, index) => {
-				if (index >= cardsCount) return total + 0;
+				if (index > cardsCount) return total + 0;
 
 				if (marginRight == null) {
 					marginRight = +window.getComputedStyle(card).marginRight.replace('px', '');
@@ -180,7 +194,7 @@
 
 				let cardWidth = card.getBoundingClientRect().width;
 				if (index === 0) {
-					cardWidth *= 2;
+					cardWidth *= 1.14;
 				}
 
 				return total += cardWidth + marginRight;
@@ -189,70 +203,19 @@
 			return width;
 		}
 
+		// /*
 		servicesTimeline.fromTo(
 			servicesGallery.querySelector('.services__list'),
 			{
-				yPercent: -60,
 				x: getServicesFromOffsetX()
 			},
 			{
-				yPercent: -70,
 				x: getSerivcesToOffsetX()
 			},
 			'<'
 		);
+		// */
 
-		/*
-		function getServicesListScrollTriggerEnd(lengthModifier = 0) {
-			const SERVICES_CARDS = [...servicesList.querySelectorAll('.services__item')];
-			if (SERVICES_CARDS.length === 0) {
-				console.warn('No such cards');
-				return 0;
-			}
-
-			return SERVICES_CARDS[0].getBoundingClientRect().width * (SERVICES_CARDS.length - lengthModifier);
-		}
-
-		function getServicesFromOffsetX() {
-			if (window.innerWidth <= 610) return 0;
-
-			const SERVICES_CARD = servicesList.querySelector('.services__item');
-			let offsetCardsCount = 4;
-
-			return offsetCardsCount * SERVICES_CARD.getBoundingClientRect().width
-		}
-
-		function getSrevicesToOffsetX() {
-			let cardsCountModifer = -1.35;
-			if (window.innerWidth <= 610) {
-				cardsCountModifer = -0.7;
-			}
-
-			return 0 - (getServicesListScrollTriggerEnd(cardsCountModifer));
-		}
-
-		function getServicesOffsetStartModifier() {
-			const cardsHeight = servicesList.getBoundingClientRect().height;
-			const card = servicesList.querySelector('.services__item');
-			const cardMarginBottom = +window.getComputedStyle(card).marginBottom.replace('px', '');
-			const offsetModifier = (window.innerHeight - cardsHeight + cardMarginBottom) * 1.5;
-			return offsetModifier;
-		}
-
-		const servicesCardsTimeline = gsap.timeline({
-			scrollTrigger: {
-				// markers: true, // маркеры для отладки старта и конца
-				trigger: servicesList, // Установите триггером ваш контейнер галереи
-				scrub: true, // Разрешите pin scrub
-				pin: true, // Закрепите элемент в начале контейнера
-				start: `top-=${getServicesOffsetStartModifier()} top`, // Начало анимации pin scrub
-				end: `bottom+=${getServicesListScrollTriggerEnd(2)} bottom`, // Конец анимации pin scrub, основанный на ширине контейнера
-			},
-			startTrigger: '.services',
-		});
-
-		servicesCardsTimeline.fromTo(servicesList, {x: getServicesFromOffsetX}, {x: getSrevicesToOffsetX})
-		*/
 		//#endregion gsapHorizontalScroll
 
 
@@ -260,17 +223,30 @@
 
 		const sectionTitles = document.querySelectorAll('.section-title-animated');
 		sectionTitles.forEach((title, index) => {
+			if (title.innerText != '') return;
+
+			let startOffset = 20;
+			if (title.dataset.startOffset) {
+				startOffset = parseInt(title.dataset.startOffset, 10);
+			}
+
 			let timelineConfig = {
 				scrollTrigger: {
 					// markers: true,
 					trigger: title,
 					scrub: true,
 					pin: true,
-					start: `top-=20% center`,
+					start: `top-=${20 + startOffset}% center`,
 					end: `bottom bottom-=27%`,
 				}
 			}
 			const timeline = gsap.timeline(timelineConfig);
+			let yPercentModifier = 0;
+			if (title.dataset.yModifier) {
+				yPercentModifier = parseInt(title.dataset.yModifier, 10);
+			}
+			console.log(title.innerText, yPercentModifier);
+
 			timeline.fromTo(
 				title.querySelector('.section-title'),
 				{
@@ -281,76 +257,11 @@
 				{
 					opacity: 1,
 					scale: 1,
-					yPercent: -190,
+					yPercent: -190 + yPercentModifier,
 				},
 			);
-		})
-		/*
-		sectionTitles.forEach((title, index) => {
-			let timelineConfig = {
-				scrollTrigger: {
-					// markers: true,
-					trigger: title,
-					scrub: true,
-					pin: true,
-					start: `top-=10% center`,
-					end: `bottom+=60% center`,
-				}
-			}
+		});
 
-			if (index == 0) {
-				timelineConfig.scrollTrigger.start = `top-=50% center`;
-				timelineConfig.scrollTrigger.end = `bottom+=20% center`;
-				if (window.innerWidth <= 610) {
-					timelineConfig.scrollTrigger.start = `top-=120% center`;
-					timelineConfig.scrollTrigger.end = `bottom-=70% center`;
-				}
-			}
-
-
-			const timeline = gsap.timeline(timelineConfig);
-
-			let fromConfig = {
-					alpha: 0,
-					scale: 0.4,
-					yPercent: 0
-			}
-			if (index == 0) {
-				fromConfig.yPercent = -60;
-
-			}
-
-			let appearToConfig = {
-				alpha: 1,
-				scale: 1,
-				yPercent: -50
-			}
-			if (index == 0) {
-				if (window.innerWidth <= 610) {
-					appearToConfig.yPercent = -130;
-				}
-			}
-
-			let exitingToConfig = {
-				alpha: 0,
-				scale: 0,
-				yPercent: -80,
-			}
-			if (index == 0) {
-				if (window.innerWidth <= 610) {
-					exitingToConfig.yPercent =  -180
-				}
-			}
-
-			timeline.fromTo(title,
-				fromConfig,
-				appearToConfig,
-			);
-			timeline.to(title, exitingToConfig);
-			// }, '>=2');
-		})
-
-		*/
 		//#endregion scrubTitles
 
 

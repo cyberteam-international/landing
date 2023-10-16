@@ -8376,7 +8376,6 @@ ol {
   width: 100%;
   align-items: center;
   flex-direction: column;
-  min-height: 90vh;
 }
 
 .wrapper {
@@ -9404,7 +9403,7 @@ ol {
   align-items: flex-start;
   justify-content: flex-start;
   width: 365px;
-  flex-basis: 31%;
+  flex-basis: 31.3%;
   flex-shrink: 0;
   padding: 30px;
   border-radius: 20px;
