@@ -70,7 +70,6 @@ requestAnimationFrame(raf)
 		  }
 			//*/
 		}
-	});
 
     /*------------------
         Background Set
@@ -159,7 +158,6 @@ requestAnimationFrame(raf)
 				scrub: 0.5,
 				pin: true,
 				start: `center center`,
-				// start: `center center+=${servicesScrollerStartModifier}%`,
 				end: `+=${50 * servicesCards.length}%`,
 			}
 		}
@@ -167,13 +165,25 @@ requestAnimationFrame(raf)
 
 		function getSerivcesToOffsetX() {
 			const cards = [...document.querySelectorAll('.services__item')];
-			let marginRight = null;
+			let marginRight = 0;
 			const width = cards.reduce((total, card, index) => {
-				if (marginRight == null) {
-					marginRight = +window.getComputedStyle(card).marginRight.replace('px', '');
+				let cardsCountModifier = 3;
+				if (window.innerWidth <= 610) {
+					cardsCountModifier = 1;
 				}
+				if (index >= cards.length - cardsCountModifier) return total += 0;
+
+
+				if (marginRight == 0) marginRight = parseInt(window.getComputedStyle(card).marginRight, 10);
 
 				let cardWidth = card.getBoundingClientRect().width;
+				if (window.innerWidth <= 610) {
+					if (index == cards.length - 2) {
+						marginRight = 0;
+					}
+				}
+
+				/*
 				if (index === 0) {
 					// cardWidth *= 1.15;
 				} else if (index == cards.length - 1) {
@@ -183,6 +193,7 @@ requestAnimationFrame(raf)
 						cardWidth *= 0.495;
 					}
 				}
+				*/
 
 				return total += cardWidth + marginRight;
 			}, 0)
@@ -379,3 +390,38 @@ requestAnimationFrame(raf)
 		scrollTosectionToScroll(0);
 
 		//#endregion sectionParallax
+
+
+
+		//#region portfolioList
+
+		const portfolioList = document.querySelector('.portfolio-gallery');
+
+		const portfoiloListTimelineConfig = {
+			scrollTrigger: {
+				// markers: true,
+				trigger: portfolioList,
+				scrub: 0.5,
+				start: `top bottom`,
+				end: `top+=300 bottom`,
+			}
+		}
+		const portfolioListTimeline = gsap.timeline(portfoiloListTimelineConfig);
+
+		portfolioListTimeline.fromTo(
+			portfolioList,
+			{
+				y: 200,
+				opacity: 0
+			},
+			{
+				y: 0,
+				opacity: 1,
+			},
+			'<'
+		);
+		// */
+
+		//#endregion portfolioList
+
+	});
