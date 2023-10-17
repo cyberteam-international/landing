@@ -9372,6 +9372,21 @@ ol {
   overflow: hidden;
 }
 
+.services__gallery {
+  position: relative;
+}
+
+.services__gallery::before {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+  width: 100%;
+  height: 1px;
+  display: block;
+  background-color: pink;
+}
+
 .services__container {
   z-index: 4;
   position: relative;
@@ -9554,11 +9569,19 @@ ol {
   display: block;
   overflow: hidden;
 }
-.portfolio__item:hover .portfolio__item__text {
-  bottom: 0;
+@media (any-hover: hover) {
+  .portfolio__item:hover .portfolio__item__text {
+    bottom: 0;
+  }
+  .portfolio__item:hover .portfolio__item__text h4:after {
+    opacity: 1;
+  }
 }
-.portfolio__item:hover .portfolio__item__text h4:after {
-  opacity: 1;
+@media (max-width: 610px) {
+  .portfolio__item {
+    width: 50%;
+    height: 50vw;
+  }
 }
 
 .portfolio__item__video {
@@ -9572,6 +9595,12 @@ ol {
   left: 0;
   bottom: -500px;
   width: 100%;
+  background-image: url(../img/team/team-hover.png);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
   transition: all, 0.5s;
 }
 .portfolio__item__text h4 {
@@ -9596,7 +9625,7 @@ ol {
 .portfolio__item__text p {
   font-size: 16px;
   font-weight: 300;
-  color: #adadad;
+  color: #fff;
   margin-bottom: 35px;
 }
 .portfolio__item__text ul li {
@@ -10066,4 +10095,11 @@ ol {
   .blog__details__quote {
     padding: 30px 40px 35px 35px;
   }
+}
+.team .swiper-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet,
+.team .swiper-pagination-horizontal.swiper-pagination-bullets .swiper-pagination-bullet,
+.team .swiper-button-next,
+.team .swiper-button-prev {
+  --swiper-navigation-color: #fff;
+  --swiper-theme-color: #fff;
 }/*# sourceMappingURL=style.css.map */

@@ -16,3 +16,11 @@
 @import "portfolio";
 @import "contact";
 @import "responsive";
+
+.team .swiper-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet,
+.team .swiper-pagination-horizontal.swiper-pagination-bullets .swiper-pagination-bullet,
+.team .swiper-button-next,
+.team .swiper-button-prev {
+	--swiper-navigation-color: #fff;
+	--swiper-theme-color: #fff;
+}

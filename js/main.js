@@ -10,17 +10,15 @@
 'use strict';
 
 const lenis = new Lenis()
-
-lenis.on('scroll', (e) => {
-	// console.log(e)
-})
-
 function raf(time) {
 	lenis.raf(time)
 	requestAnimationFrame(raf)
 }
-
 requestAnimationFrame(raf)
+
+// lenis.on('scroll', (e) => {
+// 	// console.log(e)
+// })
 
     /*------------------
         Preloader
@@ -147,17 +145,25 @@ requestAnimationFrame(raf)
 
 		const servicesGallery = document.querySelector('.services__gallery');
 		const servicesCards = [...document.querySelectorAll('.services__item')];
-		const servicesTimeline = gsap.timeline({
-				scrollTrigger: {
-					markers: true,
-					trigger: servicesGallery,
-					scrub: 0.5,
-					pin: true,
-					start: `center center`,
-					end: `+=${50 * servicesCards.length}%`,
-				}
+
+		let servicesScrollerStartModifier = 20;
+		if (window.innerWidth < 610) {
+			servicesScrollerStartModifier = 0;
+		}
+
+
+		const servicesTimelineConfig = {
+			scrollTrigger: {
+				// markers: true,
+				trigger: servicesGallery,
+				scrub: 0.5,
+				pin: true,
+				start: `center center`,
+				// start: `center center+=${servicesScrollerStartModifier}%`,
+				end: `+=${50 * servicesCards.length}%`,
 			}
-		);
+		}
+		const servicesTimeline = gsap.timeline(servicesTimelineConfig);
 
 		function getSerivcesToOffsetX() {
 			const cards = [...document.querySelectorAll('.services__item')];
@@ -169,7 +175,13 @@ requestAnimationFrame(raf)
 
 				let cardWidth = card.getBoundingClientRect().width;
 				if (index === 0) {
+					// cardWidth *= 1.15;
+				} else if (index == cards.length - 1) {
+					// cardWidth *= 2;
 					cardWidth *= 2;
+					if (window.innerWidth <= 610) {
+						cardWidth *= 0.495;
+					}
 				}
 
 				return total += cardWidth + marginRight;
@@ -183,7 +195,7 @@ requestAnimationFrame(raf)
 			let marginRight = null;
 			let cardsCount = 2;
 			if (window.innerWidth <= 610) {
-				cardsCount = 1
+				cardsCount = 0
 			}
 			const width = cards.reduce((total, card, index) => {
 				if (index > cardsCount) return total + 0;
@@ -194,7 +206,11 @@ requestAnimationFrame(raf)
 
 				let cardWidth = card.getBoundingClientRect().width;
 				if (index === 0) {
-					cardWidth *= 1.14;
+					// cardWidth *= 1.14;
+					cardWidth *= 1.95;
+					if (window.innerWidth <= 610) {
+						cardWidth *= 0;
+					}
 				}
 
 				return total += cardWidth + marginRight;
@@ -203,6 +219,11 @@ requestAnimationFrame(raf)
 			return width;
 		}
 
+		// let servicesToPercentY = -60;
+		let servicesToPercentY = 0;
+		if (window.innerWidth < 610) {
+			servicesToPercentY = - 10;
+		}
 		// /*
 		servicesTimeline.fromTo(
 			servicesGallery.querySelector('.services__list'),
@@ -223,42 +244,67 @@ requestAnimationFrame(raf)
 
 		const sectionTitles = document.querySelectorAll('.section-title-animated');
 		sectionTitles.forEach((title, index) => {
-			if (title.innerText != '') return;
+			// if (title.innerText != '') return;
 
-			let startOffset = 20;
-			if (title.dataset.startOffset) {
-				startOffset = parseInt(title.dataset.startOffset, 10);
+			let stepsStart = 1;
+			if (title.dataset.stepsStart) {
+				stepsStart = parseInt(title.dataset.stepsStart, 10);
+				if (window.innerWidth <= 610) {
+					stepsStart/= 2;
+				}
+			}
+
+			let stepsEnd = 0.5;
+			if (title.dataset.stepsEnd) {
+				stepsEnd = parseInt(title.dataset.stepsEnd, 10);
+				if (window.innerWidth <= 610) {
+					stepsEnd/= 3;
+				}
 			}
 
 			let timelineConfig = {
 				scrollTrigger: {
-					// markers: true,
 					trigger: title,
 					scrub: true,
-					pin: true,
-					start: `top-=${20 + startOffset}% center`,
-					end: `bottom bottom-=27%`,
+					start: `center-=${100 * stepsStart}% center`,
+					end: `bottom+=${100 * stepsEnd}% center`,
 				}
 			}
+
 			const timeline = gsap.timeline(timelineConfig);
-			let yPercentModifier = 0;
-			if (title.dataset.yModifier) {
-				yPercentModifier = parseInt(title.dataset.yModifier, 10);
+
+			let stepsFrom = 1;
+			if (title.dataset.stepsFrom) {
+				stepsFrom = parseInt(title.dataset.stepsFrom, 10);
+				if (window.innerWidth <= 610) {
+					stepsFrom/= 2;
+				}
 			}
-			console.log(title.innerText, yPercentModifier);
+
+			let stepsTo = 0;
+			if (title.dataset.stepsTo) {
+				stepsTo = parseInt(title.dataset.stepsTo, 10);
+				if (window.innerWidth <= 610) {
+					stepsTo/= 10;
+				}
+			}
 
 			timeline.fromTo(
 				title.querySelector('.section-title'),
 				{
 					opacity: 0,
-					scale: 0.8,
-					yPercent: -300,
+					// scale: 0.9,
+					yPercent: -100 * stepsFrom,
+					// yPercent: -300,
 				},
 				{
 					opacity: 1,
-					scale: 1,
-					yPercent: -190 + yPercentModifier,
+					// scale: 1,
+					// yPercent: 0,
+					yPercent: 100 * stepsTo,
+					// yPercent: -190,
 				},
+				{ overscroll: 10, },
 			);
 		});
 
