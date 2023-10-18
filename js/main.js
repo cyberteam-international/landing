@@ -206,7 +206,7 @@ requestAnimationFrame(raf)
 			let marginRight = null;
 			let cardsCount = 2;
 			if (window.innerWidth <= 610) {
-				cardsCount = 0
+				cardsCount = 1
 			}
 			const width = cards.reduce((total, card, index) => {
 				if (index > cardsCount) return total + 0;
@@ -220,7 +220,7 @@ requestAnimationFrame(raf)
 					// cardWidth *= 1.14;
 					cardWidth *= 1.95;
 					if (window.innerWidth <= 610) {
-						cardWidth *= 0;
+						cardWidth *= 0.05;
 					}
 				}
 
@@ -275,6 +275,7 @@ requestAnimationFrame(raf)
 
 			let timelineConfig = {
 				scrollTrigger: {
+					// markers: true,
 					trigger: title,
 					scrub: true,
 					start: `center-=${100 * stepsStart}% center`,
@@ -296,7 +297,6 @@ requestAnimationFrame(raf)
 			if (title.dataset.stepsTo) {
 				stepsTo = parseInt(title.dataset.stepsTo, 10);
 				if (window.innerWidth <= 610) {
-					stepsTo/= 10;
 				}
 			}
 
@@ -314,9 +314,18 @@ requestAnimationFrame(raf)
 					// yPercent: 0,
 					yPercent: 100 * stepsTo,
 					// yPercent: -190,
+					duration: 4,
 				},
 				{ overscroll: 10, },
 			);
+
+			// console.log(title.closest('.services'));
+			if (title.closest('.services')) {
+				timeline.to(title, {
+					opacity: 0,
+					yPercent: -100 * stepsFrom,
+				}, ">-1.5")
+			}
 		});
 
 		//#endregion scrubTitles
