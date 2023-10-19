@@ -76,7 +76,7 @@
 			img.src = `./${bg}`
 			img.onload = () => {
 				loadedImages++;
-				if (loadedImages === totalImages) {
+				if (loadedImages === totalImages / 2) {
 					// console.log('images loaded');
 					const prelaoder = document.querySelector('.preloader');
 					prelaoder.classList.add('preloader--hidden')
