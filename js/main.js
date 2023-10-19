@@ -9,25 +9,16 @@
 
 'use strict';
 
-const lenis = new Lenis()
-function raf(time) {
-	lenis.raf(time)
-	requestAnimationFrame(raf)
-}
-requestAnimationFrame(raf)
-
-// lenis.on('scroll', (e) => {
-// 	// console.log(e)
-// })
-
     /*------------------
         Preloader
     --------------------*/
 	window.addEventListener('DOMContentLoaded', (event) => {
-
-		const prelaoder = document.querySelector('.preloader');
-		prelaoder.classList.add('preloader--hidden')
-
+		const lenis = new Lenis()
+		function raf(time) {
+			lenis.raf(time)
+			requestAnimationFrame(raf)
+		}
+		requestAnimationFrame(raf)
 
 		/*------------------
 				Portfolio filter
@@ -74,10 +65,23 @@ requestAnimationFrame(raf)
     /*------------------
         Background Set
     --------------------*/
-		const setBgItems = document.querySelectorAll('.set-bg');
+		const setBgItems = [...document.querySelectorAll('.set-bg')];
+		let loadedImages = 0;
+		const totalImages = setBgItems.length;
+
 		setBgItems.forEach(item => {
 			const bg = item.dataset.setbg;
 			item.style.backgroundImage = `url(./${bg})`;
+			const img = new Image();
+			img.src = `./${bg}`
+			img.onload = () => {
+				loadedImages++;
+				if (loadedImages === totalImages) {
+					// console.log('images loaded');
+					const prelaoder = document.querySelector('.preloader');
+					prelaoder.classList.add('preloader--hidden')
+				}
+			}
 		})
 
 
