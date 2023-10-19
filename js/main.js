@@ -158,7 +158,7 @@ requestAnimationFrame(raf)
 				scrub: 0.5,
 				pin: true,
 				start: `center center-=13%`,
-				end: `+=${50 * servicesCards.length}%`,
+				end: `+=${30 * servicesCards.length - 1}%`,
 			}
 		}
 		const servicesTimeline = gsap.timeline(servicesTimelineConfig);
@@ -206,7 +206,7 @@ requestAnimationFrame(raf)
 			let marginRight = null;
 			let cardsCount = 1;
 			if (window.innerWidth <= 610) {
-				cardsCount = 0;
+				cardsCount = 1;
 			}
 			const width = cards.reduce((total, card, index) => {
 				if (index > cardsCount) return total + 0;
@@ -218,9 +218,10 @@ requestAnimationFrame(raf)
 				let cardWidth = card.getBoundingClientRect().width;
 				if (index === 0) {
 					// cardWidth *= 1.14;
-					cardWidth *= 2.5;
 					if (window.innerWidth <= 610) {
-						cardWidth *= 0;
+						cardWidth *= 0.2;
+					} else {
+						cardWidth *= 2.5;
 					}
 				}
 
@@ -260,7 +261,7 @@ requestAnimationFrame(raf)
 			if (title.dataset.stepsStart) {
 				stepsStart = parseFloat(title.dataset.stepsStart, 10);
 				if (window.innerWidth <= 610) {
-					stepsStart/= 2;
+					stepsStart/= 1.5;
 				}
 			}
 
@@ -268,7 +269,7 @@ requestAnimationFrame(raf)
 			if (title.dataset.stepsEnd) {
 				stepsEnd = parseFloat(title.dataset.stepsEnd, 10);
 				if (window.innerWidth <= 610) {
-					stepsEnd/= 3;
+					stepsEnd/= 2;
 				}
 			}
 
@@ -295,6 +296,7 @@ requestAnimationFrame(raf)
 			if (title.dataset.stepsTo) {
 				stepsTo = parseFloat(title.dataset.stepsTo, 10);
 				if (window.innerWidth <= 610) {
+					// stepsTo /= 2;
 				}
 			}
 
@@ -315,26 +317,30 @@ requestAnimationFrame(raf)
 			);
 
 			if (title.closest('.services')) {
-				titleTimeline.to(title, {
+				titleTimeline.fromTo(title,
+				{
+					yPercent: 100 * stepsTo,
+				},
+				{
 					yPercent: -20,
-				});
+				}, '<');
 
-				if (window.innerWidth > 610) {
+				// if (window.innerWidth > 610) {
 					titleTimeline.fromTo(document.querySelector('.services__gallery'), {
 						// opacity: 0,
 					}, {
 						// opacity: 1,
 					}, ">");
-				} else {
-					titleTimeline.fromTo(document.querySelector('.services__gallery'), {
-						opacity: 0,
-						yPercent: 20,
-					}, {
-						yPercent: 0,
-						opacity: 1,
-						duration: 2,
-					}, "<+2");
-				}
+				// } else {
+				// 	titleTimeline.fromTo(document.querySelector('.services__gallery'), {
+				// 		opacity: 0,
+				// 		yPercent: 20,
+				// 	}, {
+				// 		yPercent: 0,
+				// 		opacity: 1,
+				// 		duration: 2,
+				// 	}, "<+2");
+				// }
 			}
 		});
 
@@ -423,11 +429,14 @@ requestAnimationFrame(raf)
 		}
 		const portfolioListTimeline = gsap.timeline(portfoiloListTimelineConfig);
 
-		portfolioListTimeline.to(
+		portfolioListTimeline.fromTo(
 			document.querySelector('.services__gallery'),
 			{
-				y: -420,
-				opacity: 0
+				// opacity: 1
+			},
+			{
+				// y: -420,
+				// opacity: 0
 			},
 			'<'
 		);
