@@ -110,11 +110,19 @@ ol {
 -----------------------*/
 .section-title {
   margin-bottom: 50px;
-	// display: flex;
-	// justify-content: center;
-	// align-items: center;
-	// flex-direction: column;
+	display: flex;
+	flex-direction: column;
+	justify-content: end;
+	align-items: center;
 	// min-height: 50vh;
+
+	h2{
+
+			font-size: 78px;
+			&:after{
+					display: none;
+			}
+	}
 
   &.center-title {
     text-align: center;
@@ -151,7 +159,7 @@ ol {
       height: 5px;
       width: 70px;
       background: $primary-color;
-      content: "";
+      // content: "";
     }
   }
 }

@@ -154,7 +154,7 @@ requestAnimationFrame(raf)
 		const servicesTimelineConfig = {
 			scrollTrigger: {
 				// markers: true,
-				trigger: servicesGallery,
+				trigger: servicesGallery.closest('.services'),
 				scrub: 0.5,
 				pin: true,
 				start: `center center`,
@@ -206,7 +206,7 @@ requestAnimationFrame(raf)
 			let marginRight = null;
 			let cardsCount = 2;
 			if (window.innerWidth <= 610) {
-				cardsCount = 1
+				cardsCount = 0;
 			}
 			const width = cards.reduce((total, card, index) => {
 				if (index > cardsCount) return total + 0;
@@ -218,9 +218,9 @@ requestAnimationFrame(raf)
 				let cardWidth = card.getBoundingClientRect().width;
 				if (index === 0) {
 					// cardWidth *= 1.14;
-					cardWidth *= 1.95;
+					cardWidth *= 2;
 					if (window.innerWidth <= 610) {
-						cardWidth *= 0.05;
+						cardWidth *= 0;
 					}
 				}
 
@@ -273,7 +273,7 @@ requestAnimationFrame(raf)
 				}
 			}
 
-			let timelineConfig = {
+			let titleTimelineConfig = {
 				scrollTrigger: {
 					// markers: true,
 					trigger: title,
@@ -282,8 +282,7 @@ requestAnimationFrame(raf)
 					end: `bottom+=${100 * stepsEnd}% center`,
 				}
 			}
-
-			const timeline = gsap.timeline(timelineConfig);
+			const titleTimeline = gsap.timeline(titleTimelineConfig);
 
 			let stepsFrom = 1;
 			if (title.dataset.stepsFrom) {
@@ -300,7 +299,7 @@ requestAnimationFrame(raf)
 				}
 			}
 
-			timeline.fromTo(
+			titleTimeline.fromTo(
 				title.querySelector('.section-title'),
 				{
 					opacity: 0,
@@ -321,10 +320,15 @@ requestAnimationFrame(raf)
 
 			// console.log(title.closest('.services'));
 			if (title.closest('.services')) {
-				timeline.to(title, {
-					opacity: 0,
-					yPercent: -100 * stepsFrom,
-				}, ">-1.5")
+				titleTimeline.fromTo(document.querySelector('.services__gallery'), {
+					opacity: 0
+				}, {
+					opacity: 1
+				}, ">-1.5");
+			// 	titleTimeline.to(title, {
+			// 		opacity: 0,
+			// 		yPercent: -100 * stepsFrom,
+			// 	}, ">-1.5")
 			}
 		});
 
@@ -346,7 +350,7 @@ requestAnimationFrame(raf)
 			const bg = section.querySelector('.b_parallax__bg');
 
 			let sectionFirstScreen = isSectionFirstScreen(section)
-			let timelineConfig = {
+			let parallaxTimelineConfig = {
 				scrollTrigger: {
 					trigger: section,
 					scrub: true,
@@ -360,16 +364,16 @@ requestAnimationFrame(raf)
 			}
 
 			if (sectionFirstScreen) {
-				timelineConfig.scrollTrigger.start = 'top top';
-				timelineConfig.scrollTrigger.end = 'bottom+=40% top';
+				parallaxTimelineConfig.scrollTrigger.start = 'top top';
+				parallaxTimelineConfig.scrollTrigger.end = 'bottom+=40% top';
 			}
 
-			const timeline = gsap.timeline(timelineConfig);
+			const parallaxTimeline = gsap.timeline(parallaxTimelineConfig);
 
 			let sectionFrom = sectionFirstScreen ? 0 : -70;
 			let sectionTo = window.innerWidth <= 610 ? 20 : 50;
 
-			timeline.fromTo(bg, {yPercent: sectionFrom}, {yPercent: sectionTo});
+			parallaxTimeline.fromTo(bg, {yPercent: sectionFrom}, {yPercent: sectionTo});
 		})
 
 		function getTopOffset(percents = 100) {
@@ -411,8 +415,8 @@ requestAnimationFrame(raf)
 				// markers: true,
 				trigger: portfolioList,
 				scrub: 0.5,
-				start: `top bottom`,
-				end: `top+=300 bottom`,
+				start: `top+500 bottom`,
+				end: `top+=800 bottom`,
 			}
 		}
 		const portfolioListTimeline = gsap.timeline(portfoiloListTimelineConfig);

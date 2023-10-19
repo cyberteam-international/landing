@@ -35,14 +35,7 @@
 .services__title {
     display: inline-block;
     margin: 0 auto;
-    margin-bottom: 35px;
-    h2{
-
-        font-size: 78px;
-        &:after{
-            display: none;
-        }
-    }
+    margin-bottom: 0;
 }
 
 .services__list{

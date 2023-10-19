@@ -6,13 +6,12 @@
   padding: 0;
 	position: relative;
 	z-index: 3;
-	// margin-top: -140vh;
 }
 
-// .portfolio__container {
-// 	z-index: 5;
-// 	position: relative;
-// }
+.portfolio__title {
+	min-height: 50vh;
+	margin-bottom: 0;
+}
 
 .portfolio__filter {
   text-align: center;
