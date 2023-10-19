@@ -8340,14 +8340,20 @@ ol {
   margin-bottom: 50px;
   display: flex;
   flex-direction: column;
-  justify-content: end;
+  justify-content: flex-end;
   align-items: center;
+  min-height: 50vh;
 }
 .section-title h2 {
   font-size: 78px;
 }
 .section-title h2:after {
   display: none;
+}
+@media (max-width: 768px) {
+  .section-title h2 {
+    font-size: 48px;
+  }
 }
 .section-title.center-title {
   text-align: center;
@@ -8383,6 +8389,7 @@ ol {
 .section-title-animated {
   display: flex;
   width: 100%;
+  justify-content: flex-end;
   align-items: center;
   flex-direction: column;
 }
@@ -9334,9 +9341,7 @@ ol {
 }
 
 .services__title {
-  display: inline-block;
   margin: 0 auto;
-  margin-bottom: 0;
 }
 
 .services__list {
@@ -9475,7 +9480,6 @@ ol {
 }
 
 .portfolio__title {
-  min-height: 50vh;
   margin-bottom: 0;
 }
 
@@ -9740,10 +9744,6 @@ ol {
 }
 .contact__form form textarea:focus {
   border-color: #e1e1e1;
-}
-
-.team__title {
-  min-height: 70vh;
 }
 
 .section-title.team__title {

@@ -157,7 +157,7 @@ requestAnimationFrame(raf)
 				trigger: servicesGallery.closest('.services'),
 				scrub: 0.5,
 				pin: true,
-				start: `center center`,
+				start: `center center-=13%`,
 				end: `+=${50 * servicesCards.length}%`,
 			}
 		}
@@ -174,7 +174,7 @@ requestAnimationFrame(raf)
 				if (index >= cards.length - cardsCountModifier) return total += 0;
 
 
-				if (marginRight == 0) marginRight = parseInt(window.getComputedStyle(card).marginRight, 10);
+				if (marginRight == 0) marginRight = parseFloat(window.getComputedStyle(card).marginRight, 10);
 
 				let cardWidth = card.getBoundingClientRect().width;
 				if (window.innerWidth <= 610) {
@@ -204,7 +204,7 @@ requestAnimationFrame(raf)
 		function getServicesFromOffsetX() {
 			const cards = [...document.querySelectorAll('.services__item')];
 			let marginRight = null;
-			let cardsCount = 2;
+			let cardsCount = 1;
 			if (window.innerWidth <= 610) {
 				cardsCount = 0;
 			}
@@ -218,7 +218,7 @@ requestAnimationFrame(raf)
 				let cardWidth = card.getBoundingClientRect().width;
 				if (index === 0) {
 					// cardWidth *= 1.14;
-					cardWidth *= 2;
+					cardWidth *= 2.5;
 					if (window.innerWidth <= 610) {
 						cardWidth *= 0;
 					}
@@ -244,7 +244,6 @@ requestAnimationFrame(raf)
 			{
 				x: getSerivcesToOffsetX()
 			},
-			'<'
 		);
 		// */
 
@@ -259,7 +258,7 @@ requestAnimationFrame(raf)
 
 			let stepsStart = 1;
 			if (title.dataset.stepsStart) {
-				stepsStart = parseInt(title.dataset.stepsStart, 10);
+				stepsStart = parseFloat(title.dataset.stepsStart, 10);
 				if (window.innerWidth <= 610) {
 					stepsStart/= 2;
 				}
@@ -267,7 +266,7 @@ requestAnimationFrame(raf)
 
 			let stepsEnd = 0.5;
 			if (title.dataset.stepsEnd) {
-				stepsEnd = parseInt(title.dataset.stepsEnd, 10);
+				stepsEnd = parseFloat(title.dataset.stepsEnd, 10);
 				if (window.innerWidth <= 610) {
 					stepsEnd/= 3;
 				}
@@ -286,7 +285,7 @@ requestAnimationFrame(raf)
 
 			let stepsFrom = 1;
 			if (title.dataset.stepsFrom) {
-				stepsFrom = parseInt(title.dataset.stepsFrom, 10);
+				stepsFrom = parseFloat(title.dataset.stepsFrom, 10);
 				if (window.innerWidth <= 610) {
 					stepsFrom/= 2;
 				}
@@ -294,7 +293,7 @@ requestAnimationFrame(raf)
 
 			let stepsTo = 0;
 			if (title.dataset.stepsTo) {
-				stepsTo = parseInt(title.dataset.stepsTo, 10);
+				stepsTo = parseFloat(title.dataset.stepsTo, 10);
 				if (window.innerWidth <= 610) {
 				}
 			}
@@ -305,30 +304,37 @@ requestAnimationFrame(raf)
 					opacity: 0,
 					// scale: 0.9,
 					yPercent: -100 * stepsFrom,
-					// yPercent: -300,
 				},
 				{
 					opacity: 1,
 					// scale: 1,
-					// yPercent: 0,
 					yPercent: 100 * stepsTo,
-					// yPercent: -190,
 					duration: 4,
 				},
 				{ overscroll: 10, },
 			);
 
-			// console.log(title.closest('.services'));
 			if (title.closest('.services')) {
-				titleTimeline.fromTo(document.querySelector('.services__gallery'), {
-					opacity: 0
-				}, {
-					opacity: 1
-				}, ">-1.5");
-			// 	titleTimeline.to(title, {
-			// 		opacity: 0,
-			// 		yPercent: -100 * stepsFrom,
-			// 	}, ">-1.5")
+				titleTimeline.to(title, {
+					yPercent: -20,
+				});
+
+				if (window.innerWidth > 610) {
+					titleTimeline.fromTo(document.querySelector('.services__gallery'), {
+						// opacity: 0,
+					}, {
+						// opacity: 1,
+					}, ">");
+				} else {
+					titleTimeline.fromTo(document.querySelector('.services__gallery'), {
+						opacity: 0,
+						yPercent: 20,
+					}, {
+						yPercent: 0,
+						opacity: 1,
+						duration: 2,
+					}, "<+2");
+				}
 			}
 		});
 
@@ -357,10 +363,6 @@ requestAnimationFrame(raf)
 					start: `top bottom`,
 					end: `bottom+=20% top`,
 				}
-			}
-
-			if (index == 0) {
-				// timelineConfig.scrollTrigger.markers = true;
 			}
 
 			if (sectionFirstScreen) {
@@ -415,12 +417,20 @@ requestAnimationFrame(raf)
 				// markers: true,
 				trigger: portfolioList,
 				scrub: 0.5,
-				start: `top+500 bottom`,
+				start: `top+600 bottom`,
 				end: `top+=800 bottom`,
 			}
 		}
 		const portfolioListTimeline = gsap.timeline(portfoiloListTimelineConfig);
 
+		portfolioListTimeline.to(
+			document.querySelector('.services__gallery'),
+			{
+				y: -420,
+				opacity: 0
+			},
+			'<'
+		);
 		portfolioListTimeline.fromTo(
 			portfolioList,
 			{
@@ -437,4 +447,41 @@ requestAnimationFrame(raf)
 
 		//#endregion portfolioList
 
+
+		//#region team
+
+		const team = document.querySelector('.team');
+		const teamTimelineConfig = {
+			scrollTrigger: {
+				// markers: true,
+				trigger: team,
+				scrub: 0.5,
+				start: `top+800 center`,
+				end: '+=100%'
+			}
+		}
+		const teamTimeline = gsap.timeline(teamTimelineConfig);
+		teamTimeline.to(
+			document.querySelector('.portfolio-gallery'),
+			{
+				y: -300,
+				opacity: 0,
+			},
+			'<'
+		);
+		teamTimeline.fromTo(
+			document.querySelector('.team__carousel'),
+			{
+				y: 200,
+				opacity: 0,
+			},
+			{
+				y: 0,
+				opacity: 1,
+			},
+			'<+0.5'
+		);
+		// */
+
+		//#endregion portfolioList
 	});

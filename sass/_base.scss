@@ -112,15 +112,19 @@ ol {
   margin-bottom: 50px;
 	display: flex;
 	flex-direction: column;
-	justify-content: end;
+	justify-content: flex-end;
 	align-items: center;
-	// min-height: 50vh;
+	min-height: 50vh;
 
 	h2{
 
 			font-size: 78px;
 			&:after{
 					display: none;
+			}
+
+			@media (max-width: 768px) {
+				font-size: 48px;
 			}
 	}
 
@@ -167,7 +171,7 @@ ol {
 .section-title-animated {
 	display: flex;
 	width: 100%;
-	// justify-content: center;
+	justify-content: flex-end;
 	align-items: center;
 	flex-direction: column;
 	// min-height: 90vh;
