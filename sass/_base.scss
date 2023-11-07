@@ -113,9 +113,10 @@ ol {
   margin-bottom: 50px;
 	display: flex;
 	flex-direction: column;
-	justify-content: flex-end;
 	align-items: center;
-	min-height: 50vh;
+	position: sticky;
+	top: 50vh;
+	transform: translateY(-50%);
 
 	h2{
 
@@ -172,10 +173,12 @@ ol {
 .section-title-animated {
 	display: flex;
 	width: 100%;
-	justify-content: flex-end;
 	align-items: center;
 	flex-direction: column;
-	// min-height: 90vh;
+	height: 140vh;
+}
+.section-title-animated__runway {
+	height: 100%;
 }
 
 .wrapper {

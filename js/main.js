@@ -157,7 +157,7 @@
 
 		const servicesTimelineConfig = {
 			scrollTrigger: {
-				// markers: true,
+				markers: true,
 				trigger: servicesGallery.closest('.services'),
 				scrub: 0.5,
 				pin: true,
@@ -241,6 +241,15 @@
 			servicesToPercentY = - 10;
 		}
 		// /*
+
+		servicesTimeline.fromTo(servicesGallery.closest('.services').querySelector('.section-title-animated'),
+			{
+				yPercent: 0,
+			},
+			{
+				yPercent: -20
+			},
+		)
 		servicesTimeline.fromTo(
 			servicesGallery.querySelector('.services__list'),
 			{
@@ -249,6 +258,7 @@
 			{
 				x: getSerivcesToOffsetX()
 			},
+			'<+0.2'
 		);
 		// */
 
@@ -260,6 +270,7 @@
 		const sectionTitles = document.querySelectorAll('.section-title-animated');
 		sectionTitles.forEach((title, index) => {
 			// if (title.innerText != '') return;
+			if (index > 0) return
 
 			let stepsStart = 1;
 			if (title.dataset.stepsStart) {
@@ -279,15 +290,30 @@
 
 			let titleTimelineConfig = {
 				scrollTrigger: {
-					// markers: true,
+					markers: true,
 					trigger: title,
 					scrub: true,
-					start: `center-=${100 * stepsStart}% center`,
-					end: `bottom+=${100 * stepsEnd}% center`,
+					start: `top center`,
+					end: `bottom-=30% bottom`,
+
+					// start: `center+=28% center`,
+					// end: `bottom+=100% bottom`,
+					// start: `center-=${100 * stepsStart}% center`,
+					// end: `bottom+=${100 * stepsEnd}% center`,
 				}
 			}
-			const titleTimeline = gsap.timeline(titleTimelineConfig);
+			// const titleTimeline = gsap.timeline(titleTimelineConfig);
 
+			titleTimeline.fromTo(title.parentElement,
+				{
+					yPercent: 0,
+				},
+				{
+					yPercent: -25,
+				}
+			)
+
+			if (index !== 10000) return
 			let stepsFrom = 1;
 			if (title.dataset.stepsFrom) {
 				stepsFrom = parseFloat(title.dataset.stepsFrom, 10);

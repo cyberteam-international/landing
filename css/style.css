@@ -8341,9 +8341,10 @@ ol {
   margin-bottom: 50px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
   align-items: center;
-  min-height: 50vh;
+  position: sticky;
+  top: 50vh;
+  transform: translateY(-50%);
 }
 .section-title h2 {
   font-size: 78px;
@@ -8390,9 +8391,13 @@ ol {
 .section-title-animated {
   display: flex;
   width: 100%;
-  justify-content: flex-end;
   align-items: center;
   flex-direction: column;
+  height: 140vh;
+}
+
+.section-title-animated__runway {
+  height: 100%;
 }
 
 .wrapper {
@@ -9318,11 +9323,12 @@ ol {
   background: #100028;
   padding-bottom: 60px;
   padding-top: 110px;
-  overflow: hidden;
 }
 
 .services__gallery {
   position: relative;
+  overflow: hidden;
+  margin-top: -55%;
 }
 
 .services__gallery::before {
