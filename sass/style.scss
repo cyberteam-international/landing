@@ -9,6 +9,7 @@
 @import "components.ct/burger";
 
 @import "header";
+@import "feedback";
 @import "home-page";
 @import "footer";
 @import "about";
@@ -16,12 +17,14 @@
 @import "portfolio";
 @import "contact";
 @import "team";
+@import "dialog";
 @import "responsive";
 
 .team .swiper-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet,
 .team .swiper-pagination-horizontal.swiper-pagination-bullets .swiper-pagination-bullet,
 .team .swiper-button-next,
 .team .swiper-button-prev {
+	--swiper-pagination-bullet-inactive-color: #fff;
 	--swiper-navigation-color: #fff;
 	--swiper-theme-color: #fff;
 }

@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 /******************************************************************
 Template Name: Dreams
 Description: Dreams wedding template
@@ -24,17 +26,180 @@ Created: Colorib
 9.  Contact
 10.  Footer Style
 -------------------------------------------------------------------*/
+/* Функции */
+
+// Замена подстроки в строке
+@function str-replace($string, $search, $replace: '') {
+	$index: str-index($string, $search);
+	@if $index {
+		@return str-slice($string, 1, $index - 1) + $replace +
+		str-replace(str-slice($string, $index +
+		str-length($search)), $search, $replace);
+	}
+	@return $string;
+}
+
+// Убрать все пробелы из строки
+@function str-remove-whitespace($str) {
+	@while (str-index($str, ' ') != null) {
+		$index: str-index($str, ' ');
+		$str: "#{str-slice($str, 0, $index - 1)}#{str-slice($str, $index + 1)}";
+	}
+	@return $str;
+}
+
+// сбросить размерность у чисел
+@function num($number) {
+	@if type-of($number) == 'number' and not unitless($number) {
+		@return math.div($number, ($number * 0 + 1));
+	}
+
+	@return $number;
+}
+
+/* Утилиты */
+
+// подключить шрифт 
+@mixin font-face($file, $family, $weight: "normal", $style: "normal", $folder: "fonts/") { 
+	@font-face { 
+		font-family: $family;
+		src: url("#{$folder}#{$file}.woff") format('woff'),
+			url("#{$folder}#{$file}.woff2") format('woff2'),
+			url("#{$folder}#{$file}.ttf")  format('truetype');
+		font-weight: $weight;
+		font-style: $style;
+	} 
+}
+  	
+// вставить символ псевдографики 
+@mixin inssymbol( $font, $symbol: '\0000', $pseudo: "after") { 
+	&:#{$pseudo} { 
+		content: "#{$symbol}"; 
+		font-family: $font; 
+		vertical-align: middle; 
+		@content; 
+	} 
+} 
+  	
+// заполнить родительский блок 
+@mixin fill($spacing: 0, $index: 0) { 
+	position: absolute; 
+	display: block; 
+	box-sizing: border-box; 
+	top: $spacing; bottom: $spacing; 
+	left: $spacing; right: $spacing; 
+	z-index: $index; 
+} 
+  	
+// сохранять пропрорции 
+@mixin aspect-ratio($w, $h) { 
+	display: block; 
+	position: relative; 
+	$ratio: calc($h / $w); 
+	&:before { 
+		content: ''; 
+		display: block; 
+		padding-top: (100% * $ratio); 
+	} 
+	> * { @include fill(); } 
+} 
+
+// оптимизировать url для svg
+@function svg-url($svg) {
+	$encoded:'';
+	$slice: 2000;
+	$index: 0;
+	$loops: ceil(math.div(str-length($svg), $slice));
+	@for $i from 1 through $loops {
+		$chunk: str-slice($svg, $index, $index + $slice - 1);
+		$chunk: str-replace($chunk,'"','\'');
+		$chunk: str-replace($chunk,'<','%3C');
+		$chunk: str-replace($chunk,'>','%3E');
+		$chunk: str-replace($chunk,'&','%26');
+		$chunk: str-replace($chunk,'#','%23');
+		$chunk: str-replace($chunk,'{','%7B');
+		$chunk: str-replace($chunk,'}','%7D');
+		$encoded: #{$encoded}#{$chunk};
+		$index: $index + $slice;
+	}
+	@return url("data:image/svg+xml;charset=utf8,#{$encoded}");
+}
+
+// спрятать элемент
+@mixin hide {
+	appearance: none;
+	overflow: hidden;
+	border: none;
+	margin: 0;
+	padding: 0;
+	height: 1px;
+	position: absolute;
+	top: -9999px;
+	left: -9999px;
+}
+
+@mixin outline($color: grey) { 
+	outline: 1px dotted $color; 
+} 
+
+// плавное изменение размера на заданном диапазоне ширины экрана
+@mixin range($currentValue, $targetValue, $currentScreen, $targetScreen, $property: 'font-size') {
+	$diffValue: num($currentValue) - num($targetValue);
+	$diffScreen: num($currentScreen) - num($targetScreen);
+
+	@media (max-width: $currentScreen) {
+		#{$property}: calc(#{$targetValue} + #{$diffValue} * ((100vw - #{$targetScreen}) / #{$diffScreen}));
+	}
+	
+	@media (max-width: $targetScreen) {
+		#{$property}: $targetValue;
+	}
+}
+
+// общий сброс элемента
+%reset-input {
+	font-size: inherit;
+	box-sizing: border-box;
+	vertical-align: middle;
+	display: inline-block;
+	white-space: normal;
+	appearance: none;
+	background: none;
+	box-shadow: none;
+	line-height: 1.1;
+	max-width: none;
+	outline: none;
+	border: none;
+	min-width: 0;
+	padding: 0;
+}
+
+// сброс кнопки
+%reset-button {
+	@extend %reset-input;
+	text-decoration: none;
+	cursor: pointer;
+	color: inherit;
+}
+
 
 /*----------------------------------------*/
 /* Template default CSS
 /*----------------------------------------*/
 html,
 body {
-  height: 100%;
-  font-family: 'Josefin Sans', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  font-smoothing: antialiased;
+	height: 100%;
+	font-family: 'Josefin Sans', sans-serif;
+	-webkit-font-smoothing: antialiased;
+	font-smoothing: antialiased;
 	background: #100028;
+	scroll-behavior: smooth;
+	scrollbar-gutter: stable;
+	position: relative;
+	
+	&.scroll-lock {
+		overflow: hidden;
+	}
 }
 
 h1,
@@ -43,83 +208,83 @@ h3,
 h4,
 h5,
 h6 {
-  margin: 0;
-  color: #111111;
-  font-weight: 400;
-  font-family: 'Play', sans-serif;
+	margin: 0;
+	color: #111111;
+	font-weight: 400;
+	font-family: 'Play', sans-serif;
 }
 
 h1 {
-  font-size: 70px;
+	font-size: 70px;
 }
 
 h2 {
-  font-size: 36px;
+	font-size: 36px;
 }
 
 h3 {
-  font-size: 30px;
+	font-size: 30px;
 }
 
 h4 {
-  font-size: 24px;
+	font-size: 24px;
 }
 
 h5 {
-  font-size: 18px;
+	font-size: 18px;
 }
 
 h6 {
-  font-size: 16px;
+	font-size: 16px;
 }
 
 p {
-  font-size: 16px;
-  font-family: 'Josefin Sans', sans-serif;
-  color: #adadad;
-  font-weight: 400;
-  line-height: 26px;
-  margin: 0 0 15px 0;
+	font-size: 16px;
+	font-family: 'Josefin Sans', sans-serif;
+	color: #adadad;
+	font-weight: 400;
+	line-height: 26px;
+	margin: 0 0 15px 0;
 }
 
 img {
-  max-width: 100%;
+	max-width: 100%;
 }
 
 input:focus,
 select:focus,
 button:focus,
 textarea:focus {
-  outline: none;
+	outline: none;
 }
 
 a:hover,
 a:focus {
-  text-decoration: none;
-  outline: none;
-  color: #fff;
+	text-decoration: none;
+	outline: none;
+	color: #fff;
 }
 
 ul,
 ol {
-  padding: 0;
-  margin: 0;
+	padding: 0;
+	margin: 0;
 }
 
 /*---------------------
-  Helper CSS
+	Helper CSS
 -----------------------*/
 .section-title {
-  margin-bottom: 50px;
+	margin-bottom: 50px;
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-end;
 	align-items: center;
-	min-height: 50vh;
+	// min-height: 50vh;
 
-	h2{
+	h2 {
+		font-size: 78px;
 
-			font-size: 78px;
 			&:after{
 					display: none;
 			}
@@ -129,44 +294,44 @@ ol {
 			}
 	}
 
-  &.center-title {
-    text-align: center;
+	&.center-title {
+		text-align: center;
 
-    h2 {
+		h2 {
 
-      &:after {
-        right: 0;
-        margin: 0 auto;
-      }
-    }
-  }
+			&:after {
+				right: 0;
+				margin: 0 auto;
+			}
+		}
+	}
 
-  span {
-    color: $white-color;
-    display: block;
-    font-size: 16px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-bottom: 6px;
-  }
+	span {
+		color: $white-color;
+		display: block;
+		font-size: 16px;
+		letter-spacing: 2px;
+		text-transform: uppercase;
+		margin-bottom: 6px;
+	}
 
-  h2 {
-    color: $white-color;
-    font-weight: 700;
-    text-transform: uppercase;
-    position: relative;
-    padding-bottom: 25px;
+	h2 {
+		color: $white-color;
+		font-weight: 700;
+		text-transform: uppercase;
+		position: relative;
+		padding-bottom: 25px;
 
-    &:after {
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      height: 5px;
-      width: 70px;
-      background: $primary-color;
-      // content: "";
-    }
-  }
+		&:after {
+			position: absolute;
+			left: 0;
+			bottom: 0;
+			height: 5px;
+			width: 70px;
+			background: $primary-color;
+			// content: "";
+		}
+	}
 }
 
 .section-title-animated {
@@ -184,14 +349,14 @@ ol {
 }
 
 .set-bg {
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: top center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: top center;
 }
 
 .spad {
-  padding-top: 100px;
-  padding-bottom: 100px;
+	// padding-top: 100px;
+	// padding-bottom: 100px;
 }
 
 .text-white h1,
@@ -204,72 +369,72 @@ ol {
 .text-white span,
 .text-white li,
 .text-white a {
-  color: #fff;
+	color: #fff;
 }
 
 /* buttons */
 .primary-btn {
-  display: inline-block;
-  font-size: 15px;
-  font-family: 'Play', sans-serif;
-  font-weight: 700;
-  padding: 14px 32px 12px;
-  color: $white-color;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  position: relative;
-  z-index: 1;
+	display: inline-block;
+	font-size: 15px;
+	font-family: 'Play', sans-serif;
+	font-weight: 700;
+	padding: 14px 32px 12px;
+	color: $white-color;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	position: relative;
+	z-index: 1;
 
-  &:hover {
+	&:hover {
 
-    &:before {
-      height: 100%;
-      width: 100%;
-    }
+		&:before {
+			height: 100%;
+			width: 100%;
+		}
 
-    &:after {
-      height: 100%;
-      width: 100%;
-    }
-  }
+		&:after {
+			height: 100%;
+			width: 100%;
+		}
+	}
 
-  &:before {
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 30px;
-    width: 30px;
-    border-left: 2px solid $primary-color;
-    border-top: 2px solid $primary-color;
-    content: "";
-    z-index: -1;
-    @include transition(all, .7s);
-  }
+	&:before {
+		position: absolute;
+		left: 0;
+		top: 0;
+		height: 30px;
+		width: 30px;
+		border-left: 2px solid $primary-color;
+		border-top: 2px solid $primary-color;
+		content: "";
+		z-index: -1;
+		@include transition(all, .7s);
+	}
 
-  &:after {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    height: 30px;
-    width: 30px;
-    border-right: 2px solid $primary-color;
-    border-bottom: 2px solid $primary-color;
-    content: "";
-    z-index: -1;
-    @include transition(all, .7s);
-  }
+	&:after {
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		height: 30px;
+		width: 30px;
+		border-right: 2px solid $primary-color;
+		border-bottom: 2px solid $primary-color;
+		content: "";
+		z-index: -1;
+		@include transition(all, .7s);
+	}
 }
 
 .site-btn {
-  font-size: 15px;
-  color: $white-color;
-  background: $primary-color;
-  font-family: 'Play', sans-serif;
-  font-weight: 700;
-  border: none;
-  display: inline-block;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  padding: 14px 34px 12px;
-  width: 100%;
+	font-size: 15px;
+	color: $white-color;
+	background: $primary-color;
+	font-family: 'Play', sans-serif;
+	font-weight: 700;
+	border: none;
+	display: inline-block;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	padding: 14px 34px 12px;
+	width: 100%;
 }

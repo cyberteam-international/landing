@@ -1,9 +1,9 @@
 /*---------------------
-  Portfolio
+	Portfolio
 -----------------------*/
 .portfolio {
-  background: #100028;
-  padding: 0;
+	background: #100028;
+	padding: 0;
 	position: relative;
 	z-index: 3;
 }
@@ -13,45 +13,47 @@
 }
 
 .portfolio__filter {
-  text-align: center;
-  margin-bottom: 40px;
+	text-align: center;
+	margin-bottom: 40px;
 
-  li {
-    list-style: none;
-    font-size: 16px;
-    color: #adadad;
-    margin-right: 5px;
-    display: inline-block;
-    cursor: pointer;
-    padding: 6px 22px;
-    border: 1px solid transparent;
-    transition: all 0.2s;
-    &.active {
-      border: 1px solid $primary-color;
-    }
+	li {
+		list-style: none;
+		font-size: 16px;
+		color: #adadad;
+		margin-right: 5px;
+		display: inline-block;
+		cursor: pointer;
+		padding: 6px 22px;
+		border: 1px solid transparent;
+		transition: all 0.2s;
+		&.active {
+			border: 1px solid $primary-color;
+		}
 
-    &:last-child {
-      margin-right: 0;
-    }
-  }
+		&:last-child {
+			margin-right: 0;
+		}
+	}
 }
 
 
 .portfolio__list{
-  // display: flex;
-  // flex-wrap: wrap;
+	max-width: 100vw;
+	overflow: hidden;
+	// display: flex;
+	// flex-wrap: wrap;
 }
 
 
 .portfolio__item {
-  flex-basis:33%;
-  width: 33%;
-  height: 33vw;
-  position: relative;
-  display: block;
-  overflow: hidden;
+	flex-basis:33%;
+	width: 33%;
+	height: 33vw;
+	position: relative;
+	display: block;
+	overflow: hidden;
 
-  &:hover {
+	&:hover {
 
 		@media (any-hover: hover) {
 			.portfolio__item__text {
@@ -61,7 +63,7 @@
 				}
 			}
 		}
-  }
+	}
 
 	@media (max-width: 610px) {
 		width: 50%;
@@ -70,18 +72,18 @@
 }
 
 .portfolio__item__video {
-  height: 100%;
-  width: 100%;
+	height: 100%;
+	width: 100%;
 }
 
 
 
 .portfolio__item__text {
-  text-align: center;
-  position: absolute;
-  left: 0;
-  bottom: -500px;
-  width: 100%;
+	text-align: center;
+	position: absolute;
+	left: 0;
+	bottom: -500px;
+	width: 100%;
 	// background-image: linear-gradient(0deg, #f8f8f8, transparent);
 	background-image: url(../img/team/team-hover.png);;
 	backdrop-filter: blur(2px);
@@ -90,119 +92,119 @@
 	padding-left: 20px;
 	padding-right: 20px;
 
-  @include transition(all, .5s);
-  h4 {
-    color: $white-color;
-    display: inline-block;
-    font-size: 22px;
-    font-weight: 700;
-    margin-bottom: 15px;
-    position: relative;
+	@include transition(all, .5s);
+	h4 {
+		color: $white-color;
+		display: inline-block;
+		font-size: 22px;
+		font-weight: 700;
+		margin-bottom: 15px;
+		position: relative;
 
-    &:after {
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      height: 1px;
-      width: 100%;
-      background: #333;
-      content: "";
-      @include transition(all, .3s);
-      opacity: 0;
-    }
-  }
-  p{
+		&:after {
+			position: absolute;
+			left: 0;
+			bottom: 0;
+			height: 1px;
+			width: 100%;
+			background: #333;
+			content: "";
+			@include transition(all, .3s);
+			opacity: 0;
+		}
+	}
+	p{
 
-      font-size: 16px;
-      font-weight: 300;
-      color: #fff;
-      margin-bottom: 35px;
-  }
+			font-size: 16px;
+			font-weight: 300;
+			color: #fff;
+			margin-bottom: 35px;
+	}
 
-  ul {
+	ul {
 
-    li {
-      list-style: none;
-      display: inline-block;
-      font-size: 16px;
-      font-weight: 300;
-      margin-right: 24px;
-      position: relative;
-      color: #adadad;
+		li {
+			list-style: none;
+			display: inline-block;
+			font-size: 16px;
+			font-weight: 300;
+			margin-right: 24px;
+			position: relative;
+			color: #adadad;
 
-      &:after {
-        position: absolute;
-        right: -16px;
-        top: 0;
-        content: "/";
-      }
+			&:after {
+				position: absolute;
+				right: -16px;
+				top: 0;
+				content: "/";
+			}
 
-      &:last-child {
-        margin-right: 0;
+			&:last-child {
+				margin-right: 0;
 
-        &:after {
-          display: none;
-        }
-      }
-    }
-  }
+				&:after {
+					display: none;
+				}
+			}
+		}
+	}
 
 
-  &:before {
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 100%;
-    background: url(../img/team/team-hover.png);
-    content: "";
-    z-index: -1;
-  }
+	&:before {
+		position: absolute;
+		left: 0;
+		top: 0;
+		height: 100%;
+		width: 100%;
+		background: url(../img/team/team-hover.png);
+		content: "";
+		z-index: -1;
+	}
 
-  span {
-    font-size: 16px;
-    font-weight: 300;
-    color: #adadad;
-    display: block;
-  }
+	span {
+		font-size: 16px;
+		font-weight: 300;
+		color: #adadad;
+		display: block;
+	}
 }
 
 .pagination__option {
-  text-align: center;
-  padding-top: 20px;
+	text-align: center;
+	padding-top: 20px;
 
-  &.blog__pagi {
-    padding-top: 5px;
-  }
+	&.blog__pagi {
+		padding-top: 5px;
+	}
 
-  .arrow__pagination {
-    font-size: 15px;
-    color: $white-color;
-    display: inline-block;
-    text-transform: uppercase;
+	.arrow__pagination {
+		font-size: 15px;
+		color: $white-color;
+		display: inline-block;
+		text-transform: uppercase;
 
-    &.left__arrow {
-      margin-right: 26px;
-    }
+		&.left__arrow {
+			margin-right: 26px;
+		}
 
-    &.right__arrow {
-      margin-left: 18px;
-    }
+		&.right__arrow {
+			margin-left: 18px;
+		}
 
-    span {
-      opacity: .5;
-    }
-  }
+		span {
+			opacity: .5;
+		}
+	}
 
-  .number__pagination {
-    font-size: 18px;
-    color: $white-color;
-    height: 50px;
-    width: 50px;
-    background: rgba(242, 242, 242, 0.1);
-    line-height: 50px;
-    text-align: center;
-    display: inline-block;
-    margin-right: 6px;
-  }
+	.number__pagination {
+		font-size: 18px;
+		color: $white-color;
+		height: 50px;
+		width: 50px;
+		background: rgba(242, 242, 242, 0.1);
+		line-height: 50px;
+		text-align: center;
+		display: inline-block;
+		margin-right: 6px;
+	}
 }

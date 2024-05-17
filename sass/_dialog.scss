@@ -1,0 +1,49 @@
+.dialog {
+	$self: &;
+	width: calc(100% - 40px);
+	max-width: 550px;
+	position: fixed;
+	inset: 0;
+	padding: 0;
+	border: none;
+	pointer-events: none;
+	z-index: 10;
+	background-color: #fff;
+	border-radius: 10px;
+
+	@keyframes slideInDown {
+		from { opacity: 0; transform: translateY(-2000px); }
+		to { opacity: 1; transform: translateY(0); }
+	}
+	
+	&::backdrop {
+		background-color: rgba(0, 0, 0, 0.7);
+	}
+	
+	&[open] {
+		pointer-events: inherit;
+		animation: slideInDown 0.6s ease both;
+	}
+
+	&__inner {
+		box-sizing: border-box;
+		padding: 20px;
+	}
+
+	&__title {
+		margin-bottom: 30px;
+
+		@media screen and (max-width: 640px) {
+			font-size: 28px;
+		}
+	}
+
+	&__close {
+		@extend %reset-button;
+		position: absolute;
+		inset: 10px 10px auto auto;
+		height: 30px;
+		width: 30px;
+		background: svg-url('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 38 38" preserveAspectRatio="none"><defs><style>.line{fill:#444;fill-rule:evenodd;}</style></defs><rect class="line" x="10.5" y="9" width="26" height="2" transform="rotate(45 10.5 9)"/><rect class="line" x="28.8" y="10.5" width="26" height="2" transform="rotate(135 28.8 10.5)"/></svg>') center / contain no-repeat transparent;
+	}
+}

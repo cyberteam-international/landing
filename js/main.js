@@ -13,15 +13,16 @@
         Preloader
     --------------------*/
 	window.addEventListener('DOMContentLoaded', (event) => {
-		const lenis = new Lenis()
+		/* const lenis = new Lenis()
 		function raf(time) {
 			lenis.raf(time)
 			requestAnimationFrame(raf)
 		}
-		requestAnimationFrame(raf)
+		requestAnimationFrame(raf) */
+
 
 		/*------------------
-				Portfolio filter
+			Portfolio filter
 		--------------------*/
 
 		const portfolioGallery = document.querySelector('.portfolio__list');
@@ -138,7 +139,7 @@
     });
 
 
-		gsap.registerPlugin(ScrollTrigger);
+		// gsap.registerPlugin(ScrollTrigger);
 
 		//#region gsapHorizontalScroll
 
@@ -146,7 +147,7 @@
 		 * Services carousel
 		 */
 
-		const servicesGallery = document.querySelector('.services__gallery');
+		/* const servicesGallery = document.querySelector('.services__gallery');
 		const servicesCards = [...document.querySelectorAll('.services__item')];
 
 		let servicesScrollerStartModifier = 20;
@@ -186,19 +187,6 @@
 						marginRight = 0;
 					}
 				}
-
-				/*
-				if (index === 0) {
-					// cardWidth *= 1.15;
-				} else if (index == cards.length - 1) {
-					// cardWidth *= 2;
-					cardWidth *= 2;
-					if (window.innerWidth <= 610) {
-						cardWidth *= 0.495;
-					}
-				}
-				*/
-
 				return total += cardWidth + marginRight;
 			}, 0)
 
@@ -235,12 +223,10 @@
 			return width;
 		}
 
-		// let servicesToPercentY = -60;
 		let servicesToPercentY = 0;
 		if (window.innerWidth < 610) {
 			servicesToPercentY = - 10;
 		}
-		// /*
 		servicesTimeline.fromTo(
 			servicesGallery.querySelector('.services__list'),
 			{
@@ -249,15 +235,14 @@
 			{
 				x: getSerivcesToOffsetX()
 			},
-		);
-		// */
+		); */
 
 		//#endregion gsapHorizontalScroll
 
 
 		//#region scrubTitles
 
-		const sectionTitles = document.querySelectorAll('.section-title-animated');
+		/* const sectionTitles = document.querySelectorAll('.section-title-animated');
 		sectionTitles.forEach((title, index) => {
 			// if (title.innerText != '') return;
 
@@ -346,7 +331,7 @@
 				// 	}, "<+2");
 				// }
 			}
-		});
+		}); */
 
 		//#endregion scrubTitles
 
@@ -357,7 +342,7 @@
 		 * Parallax bg on sections
 		 */
 
-		function isSectionFirstScreen(section) {
+		/* function isSectionFirstScreen(section) {
 			return section.offsetTop < (window.innerHeight / 2);
 		}
 
@@ -412,7 +397,7 @@
 						})
 				}
 		}
-		scrollTosectionToScroll(0);
+		scrollTosectionToScroll(0); */
 
 		//#endregion sectionParallax
 
@@ -420,7 +405,7 @@
 
 		//#region portfolioList
 
-		const portfolioList = document.querySelector('.portfolio-gallery');
+/* 		const portfolioList = document.querySelector('.portfolio-gallery');
 
 		const portfoiloListTimelineConfig = {
 			scrollTrigger: {
@@ -456,7 +441,6 @@
 			},
 			'<'
 		);
-		// */
 
 		//#endregion portfolioList
 
@@ -493,8 +477,7 @@
 				opacity: 1,
 			},
 			'<+0.5'
-		);
-		// */
+		); */
 
 		//#endregion portfolioList
 	});
