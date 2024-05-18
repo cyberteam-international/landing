@@ -5,11 +5,13 @@
 	position: relative;
 	overflow: hidden;
 	z-index: 5;
-	background-color: #100028;
+	background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../img/hero/hero-bg.jpg') center / cover no-repeat, #100028;
+	background-attachment: fixed;
+	height: 100vh;
+	height: 100svh;
 }
 
-.hero_bg{
-	// background-image: url('https://wallpapercave.com/wp/wp11589509.png');
+/* .hero_bg {
 	background-image: url(../img/hero/hero-bg.jpg);
 	background-position: center;
 	background-repeat: no-repeat;
@@ -20,16 +22,11 @@
 	width: 100%;
 	position: absolute;
 	top: 0;
-	// top: -15%;
 	left: 0;
 	filter: brightness(70%);
-}
+} */
 
-.hero__slider {
-	height: 100vh;
-}
-
-.hero__item {
+.hero__inner {
 	// height: 684px;
 	// padding-top: 255px;
 	height: 100%;
