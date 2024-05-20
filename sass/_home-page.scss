@@ -5,30 +5,25 @@
 	position: relative;
 	overflow: hidden;
 	z-index: 5;
-	background: linear-gradient(90deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.4)) 100%, url('../img/hero/hero-bg.jpg') center / cover no-repeat;
-	// background-attachment: fixed;
+	background: linear-gradient(90deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.4)) 100%, url('../img/hero/hero-bg.jpg') center / auto 100% no-repeat;
+	background-attachment: fixed;
 	height: 100vh;
 	height: 100svh;
+	
+	@media screen and (max-width: 1024px) {
+		background-attachment: inherit;
+	}
+	
+	/* &::before {
+		content: "";
+		background: linear-gradient(90deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.4)) 100%, url('../img/hero/hero-bg.jpg') center / cover no-repeat;
+		position: fixed;
+		inset: 0;
+		z-index: -1;
+	} */
 }
 
-/* .hero_bg {
-	background-image: url(../img/hero/hero-bg.jpg);
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: cover;
-	background-attachment: fixed;
-
-	height: 130%;
-	width: 100%;
-	position: absolute;
-	top: 0;
-	left: 0;
-	filter: brightness(70%);
-} */
-
 .hero__inner {
-	// height: 684px;
-	// padding-top: 255px;
 	height: 100%;
 	display: flex;
 	align-items: center;
@@ -277,6 +272,10 @@
 	background-repeat: no-repeat;
 	background-attachment: fixed;
 	background-size: cover;
+	
+	@media screen and (max-width: 1024px) {
+		background-attachment: inherit;
+	}
 
 	/* .callto_bg {
 		background-image: url(../img/callto-bg.jpg);
