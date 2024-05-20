@@ -67,6 +67,7 @@
 		Background Set
 	--------------------*/
 		const setBgItems = [...document.querySelectorAll('.set-bg')];
+		const prelaoder = document.querySelector('.preloader');
 		let loadedImages = 0;
 		const totalImages = setBgItems.length;
 
@@ -77,11 +78,10 @@
 			img.src = `./${bg}`
 			img.onload = () => {
 				loadedImages++;
-				// if (loadedImages === totalImages / 2) {
+				// prelaoder.innerHTML = `${loadedImages}:${totalImages}`;
 				if (loadedImages === totalImages) {
 					// console.log('images loaded');
-					const prelaoder = document.querySelector('.preloader');
-					prelaoder.classList.add('preloader--hidden')
+					prelaoder.classList.add('preloader--hidden');
 				}
 			}
 		})
@@ -95,9 +95,9 @@
 	//     allowParentLinks: true
 	// });
 		const burger = document.querySelector('.burger');
-		const header = document.querySelector('.header')
+		const header = document.querySelector('.header');
 		burger.addEventListener('click', () => {
-			header.classList.toggle('header--opened')
+			header.classList.toggle('header--opened');
 		})
 
 

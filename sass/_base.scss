@@ -1,5 +1,3 @@
-@use 'sass:math';
-
 /******************************************************************
 Template Name: Dreams
 Description: Dreams wedding template
@@ -26,161 +24,25 @@ Created: Colorib
 9.  Contact
 10.  Footer Style
 -------------------------------------------------------------------*/
-/* Функции */
 
-// Замена подстроки в строке
-@function str-replace($string, $search, $replace: '') {
-	$index: str-index($string, $search);
-	@if $index {
-		@return str-slice($string, 1, $index - 1) + $replace +
-		str-replace(str-slice($string, $index +
-		str-length($search)), $search, $replace);
-	}
-	@return $string;
-}
 
-// Убрать все пробелы из строки
-@function str-remove-whitespace($str) {
-	@while (str-index($str, ' ') != null) {
-		$index: str-index($str, ' ');
-		$str: "#{str-slice($str, 0, $index - 1)}#{str-slice($str, $index + 1)}";
-	}
-	@return $str;
-}
 
-// сбросить размерность у чисел
-@function num($number) {
-	@if type-of($number) == 'number' and not unitless($number) {
-		@return math.div($number, ($number * 0 + 1));
-	}
+/*----------------------------------------*/
+/* Fonts 
+/*----------------------------------------*/
 
-	@return $number;
-}
-
-/* Утилиты */
-
-// подключить шрифт 
-@mixin font-face($file, $family, $weight: "normal", $style: "normal", $folder: "fonts/") { 
-	@font-face { 
-		font-family: $family;
-		src: url("#{$folder}#{$file}.woff") format('woff'),
-			url("#{$folder}#{$file}.woff2") format('woff2'),
-			url("#{$folder}#{$file}.ttf")  format('truetype');
-		font-weight: $weight;
-		font-style: $style;
-	} 
-}
-  	
-// вставить символ псевдографики 
-@mixin inssymbol( $font, $symbol: '\0000', $pseudo: "after") { 
-	&:#{$pseudo} { 
-		content: "#{$symbol}"; 
-		font-family: $font; 
-		vertical-align: middle; 
-		@content; 
-	} 
-} 
-  	
-// заполнить родительский блок 
-@mixin fill($spacing: 0, $index: 0) { 
-	position: absolute; 
-	display: block; 
-	box-sizing: border-box; 
-	top: $spacing; bottom: $spacing; 
-	left: $spacing; right: $spacing; 
-	z-index: $index; 
-} 
-  	
-// сохранять пропрорции 
-@mixin aspect-ratio($w, $h) { 
-	display: block; 
-	position: relative; 
-	$ratio: calc($h / $w); 
-	&:before { 
-		content: ''; 
-		display: block; 
-		padding-top: (100% * $ratio); 
-	} 
-	> * { @include fill(); } 
-} 
-
-// оптимизировать url для svg
-@function svg-url($svg) {
-	$encoded:'';
-	$slice: 2000;
-	$index: 0;
-	$loops: ceil(math.div(str-length($svg), $slice));
-	@for $i from 1 through $loops {
-		$chunk: str-slice($svg, $index, $index + $slice - 1);
-		$chunk: str-replace($chunk,'"','\'');
-		$chunk: str-replace($chunk,'<','%3C');
-		$chunk: str-replace($chunk,'>','%3E');
-		$chunk: str-replace($chunk,'&','%26');
-		$chunk: str-replace($chunk,'#','%23');
-		$chunk: str-replace($chunk,'{','%7B');
-		$chunk: str-replace($chunk,'}','%7D');
-		$encoded: #{$encoded}#{$chunk};
-		$index: $index + $slice;
-	}
-	@return url("data:image/svg+xml;charset=utf8,#{$encoded}");
-}
-
-// спрятать элемент
-@mixin hide {
-	appearance: none;
-	overflow: hidden;
-	border: none;
-	margin: 0;
-	padding: 0;
-	height: 1px;
-	position: absolute;
-	top: -9999px;
-	left: -9999px;
-}
-
-@mixin outline($color: grey) { 
-	outline: 1px dotted $color; 
-} 
-
-// плавное изменение размера на заданном диапазоне ширины экрана
-@mixin range($currentValue, $targetValue, $currentScreen, $targetScreen, $property: 'font-size') {
-	$diffValue: num($currentValue) - num($targetValue);
-	$diffScreen: num($currentScreen) - num($targetScreen);
-
-	@media (max-width: $currentScreen) {
-		#{$property}: calc(#{$targetValue} + #{$diffValue} * ((100vw - #{$targetScreen}) / #{$diffScreen}));
-	}
-	
-	@media (max-width: $targetScreen) {
-		#{$property}: $targetValue;
-	}
-}
-
-// общий сброс элемента
-%reset-input {
-	font-size: inherit;
-	box-sizing: border-box;
-	vertical-align: middle;
-	display: inline-block;
-	white-space: normal;
-	appearance: none;
-	background: none;
-	box-shadow: none;
-	line-height: 1.1;
-	max-width: none;
-	outline: none;
-	border: none;
-	min-width: 0;
-	padding: 0;
-}
-
-// сброс кнопки
-%reset-button {
-	@extend %reset-input;
-	text-decoration: none;
-	cursor: pointer;
-	color: inherit;
-}
+// @include font-face("Montserrat-ExtraLight", "MR", 200);
+// @include font-face("Montserrat-ExtraBold", "MR", 800);
+// @include font-face("Montserrat-SemiBold", "MR", 600);
+@include font-face("JosefinSans-Regular", "JS", 400, 'normal', '../fonts/');
+// @include font-face("free-fa-brands-400", "Font Awesome 6 Brands", 400, 'normal', '../fonts/');
+// @include font-face("Montserrat-Medium", "MR", 500);
+// @include font-face("Montserrat-Light", "MR", 300);
+// @include font-face("Montserrat-Black", "MR", 900);
+@include font-face("JosefinSans-Bold", "JS", 700, 'normal', '../fonts/');
+@include font-face("Play-Bold", "PL", 700, 'normal', '../fonts/');
+// @include font-face("free-fa-solid-900", "Font Awesome 6 Free", 900, 'normal', '../fonts/');
+// @include font-face("Montserrat-Thin", "MR", 100);
 
 
 /*----------------------------------------*/
@@ -189,7 +51,8 @@ Created: Colorib
 html,
 body {
 	height: 100%;
-	font-family: 'Josefin Sans', sans-serif;
+	font-family: 'JS', sans-serif;
+	// font-family: 'Font Awesome 6 Brands', sans-serif;
 	-webkit-font-smoothing: antialiased;
 	font-smoothing: antialiased;
 	background: #100028;
@@ -211,7 +74,7 @@ h6 {
 	margin: 0;
 	color: #111111;
 	font-weight: 400;
-	font-family: 'Play', sans-serif;
+	font-family: 'PL', sans-serif;
 }
 
 h1 {
@@ -240,7 +103,7 @@ h6 {
 
 p {
 	font-size: 16px;
-	font-family: 'Josefin Sans', sans-serif;
+	font-family: 'JS', sans-serif;
 	color: #adadad;
 	font-weight: 400;
 	line-height: 26px;
@@ -376,7 +239,7 @@ ol {
 .primary-btn {
 	display: inline-block;
 	font-size: 15px;
-	font-family: 'Play', sans-serif;
+	font-family: 'PL', sans-serif;
 	font-weight: 700;
 	padding: 14px 32px 12px;
 	color: $white-color;
@@ -408,9 +271,10 @@ ol {
 		border-top: 2px solid $primary-color;
 		content: "";
 		z-index: -1;
-		@include transition(all, .7s);
+		transition: height 0.7s, width 0.7s;
+		// @include transition(all, .7s);
 	}
-
+	
 	&:after {
 		position: absolute;
 		right: 0;
@@ -421,7 +285,8 @@ ol {
 		border-bottom: 2px solid $primary-color;
 		content: "";
 		z-index: -1;
-		@include transition(all, .7s);
+		transition: height 0.7s, width 0.7s;
+		// @include transition(all, .7s);
 	}
 }
 
@@ -429,7 +294,7 @@ ol {
 	font-size: 15px;
 	color: $white-color;
 	background: $primary-color;
-	font-family: 'Play', sans-serif;
+	font-family: 'PL', sans-serif;
 	font-weight: 700;
 	border: none;
 	display: inline-block;
