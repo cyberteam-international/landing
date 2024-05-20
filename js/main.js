@@ -1,17 +1,17 @@
 /*  ---------------------------------------------------
-    Template Name: Dreams
-    Description: Dreams wedding template
-    Author: Colorib
-    Author URI: https://colorlib.com/
-    Version: 1.0
-    Created: Colorib
+	Template Name: Dreams
+	Description: Dreams wedding template
+	Author: Colorib
+	Author URI: https://colorlib.com/
+	Version: 1.0
+	Created: Colorib
 ---------------------------------------------------------  */
 
 'use strict';
 
-    /*------------------
-        Preloader
-    --------------------*/
+	/*------------------
+		Preloader
+	--------------------*/
 	window.addEventListener('DOMContentLoaded', (event) => {
 		/* const lenis = new Lenis()
 		function raf(time) {
@@ -29,8 +29,8 @@
 
 		if (portfolioGallery) {
 		  const iso = new Isotope(portfolioGallery, {
-		    itemSelector: '.portfolio__item',
-		    layoutMode: 'fitRows'
+			itemSelector: '.portfolio__item',
+			layoutMode: 'fitRows'
 		  });
 
 		  // Функция для фильтрации по категории
@@ -41,31 +41,31 @@
 					});
 					return;
 				}
-		    iso.arrange({
-		      filter: `[data-category="${category}"]`
-		    });
+			iso.arrange({
+			  filter: `[data-category="${category}"]`
+			});
 		  }
 
 		  // Привязка события клика на элементы фильтрации
 		  const filterButtons = document.querySelectorAll('.portfolio__filter li');
 		  if (filterButtons) {
-		    filterButtons.forEach((button) => {
-		      button.addEventListener('click', () => {
-		      	filterButtons.forEach(filterButton => {
-		      		filterButton.classList.remove('active');
-		      	});
-		      	button.classList.add('active');
-		        const category = button.dataset.category;
-		        filterItems(category);
-		      });
-		    });
+			filterButtons.forEach((button) => {
+			  button.addEventListener('click', () => {
+			  	filterButtons.forEach(filterButton => {
+			  		filterButton.classList.remove('active');
+			  	});
+			  	button.classList.add('active');
+				const category = button.dataset.category;
+				filterItems(category);
+			  });
+			});
 		  }
 			//*/
 		}
 
-    /*------------------
-        Background Set
-    --------------------*/
+	/*------------------
+		Background Set
+	--------------------*/
 		const setBgItems = [...document.querySelectorAll('.set-bg')];
 		let loadedImages = 0;
 		const totalImages = setBgItems.length;
@@ -77,7 +77,8 @@
 			img.src = `./${bg}`
 			img.onload = () => {
 				loadedImages++;
-				if (loadedImages === totalImages / 2) {
+				// if (loadedImages === totalImages / 2) {
+				if (loadedImages === totalImages) {
 					// console.log('images loaded');
 					const prelaoder = document.querySelector('.preloader');
 					prelaoder.classList.add('preloader--hidden')
@@ -86,13 +87,13 @@
 		})
 
 
-    /*------------------
+	/*------------------
 		Navigation
 	--------------------*/
-    // $(".mobile-menu").slicknav({
-    //     prependTo: '#mobile-menu-wrap',
-    //     allowParentLinks: true
-    // });
+	// $(".mobile-menu").slicknav({
+	//     prependTo: '#mobile-menu-wrap',
+	//     allowParentLinks: true
+	// });
 		const burger = document.querySelector('.burger');
 		const header = document.querySelector('.header')
 		burger.addEventListener('click', () => {
@@ -102,41 +103,41 @@
 
 
 
-    const swiper = new Swiper('.swiper', {
-        // Optional parameters
-        loop: false,
-        slidesPerView: 4,
-        spaceBetween: 30,
+	/* const swiper = new Swiper('.swiper', {
+		// Optional parameters
+		loop: false,
+		slidesPerView: 4,
+		spaceBetween: 30,
 
-        // If we need pagination
-        pagination: {
-          el: '.swiper-pagination',
-        },
+		// If we need pagination
+		pagination: {
+		  el: '.swiper-pagination',
+		},
 
-        // Navigation arrows
-        navigation: {
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev',
-        },
+		// Navigation arrows
+		navigation: {
+		  nextEl: '.swiper-button-next',
+		  prevEl: '.swiper-button-prev',
+		},
 
-        breakpoints: {
-            // when window width is >= 320px
-            320: {
-              slidesPerView: 1,
-              spaceBetween: 20
-            },
-            // when window width is >= 480px
-            580: {
-              slidesPerView: 2,
-              spaceBetween: 30
-            },
-            // when window width is >= 640px
-            992: {
-              slidesPerView: 3,
-              spaceBetween: 40
-            }
-          }
-    });
+		breakpoints: {
+			// when window width is >= 320px
+			320: {
+			  slidesPerView: 1,
+			  spaceBetween: 20
+			},
+			// when window width is >= 480px
+			580: {
+			  slidesPerView: 2,
+			  spaceBetween: 30
+			},
+			// when window width is >= 640px
+			992: {
+			  slidesPerView: 3,
+			  spaceBetween: 40
+			}
+		  }
+	}); */
 
 
 		// gsap.registerPlugin(ScrollTrigger);
