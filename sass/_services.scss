@@ -74,7 +74,6 @@
 	&:hover {
 
 		.services__item__icon {
-
 			&:after {
 				-webkit-transform: rotate(45deg);
 				transform: rotate(45deg);
@@ -109,8 +108,8 @@
 	  }
 	@media (max-width: 610px) {
 		flex-basis: 90%;
-		margin-right: 20px;
-	transform: none;
+		// margin-right: 20px;
+		transform: none;
 	}
 }
 
@@ -148,7 +147,6 @@
 }
 
 
-
 .services__item__icon {
 	position: relative;
 	height: 70px;
@@ -158,7 +156,8 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	i{
+	
+	i {
 		font-size: 36px;
 	}
 
@@ -175,10 +174,13 @@
 
 .services__technologies-list{
 	display: flex;
+	flex-wrap: wrap;
 	margin-bottom: 20px;
 	list-style: none;
-	img{
+
+	img {
 		height: 40px;
-		margin-right: 15px;
+		margin-right: 5px;
+		margin-bottom: 5px;
 	}
 }
