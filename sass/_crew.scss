@@ -1,0 +1,64 @@
+.crew {
+	$self: &;
+	margin-bottom: 200px;
+	
+	&__inner {
+		box-sizing: border-box;
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		grid-gap: 40px;
+		width: calc(100% - 48px);
+		max-width: 1170px;
+		margin: 0 auto;
+		align-items: center;
+		
+		@media screen and (max-width: 991px) {
+			grid-template-columns: 1fr;
+			max-width: 720px;
+		}
+	}
+
+	&__image {
+
+		img {
+			display: block;
+		}
+	}
+	
+	&__side {
+		box-sizing: border-box;
+	}
+
+	&__title {
+		color: #fff;
+		margin-bottom: 30px;
+		
+		@media screen and (max-width: 991px) {
+			text-align: center;
+		}
+
+		span {
+			display: block;
+
+			&:nth-child(1) {
+				font-size: 16px;
+				text-transform: uppercase;
+				font-family: "Josefin Sans", sans-serif;
+			}
+			
+			&:nth-child(2) {
+				font-size: 78px;
+				text-transform: uppercase;
+				font-weight: 700;
+				
+				@media screen and (max-width: 768px) {
+					font-size: 48px;
+				}
+			}
+		}
+	}
+
+	&__text {
+
+	}
+}

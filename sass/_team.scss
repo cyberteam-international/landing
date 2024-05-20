@@ -4,7 +4,7 @@
 	background: #100028;
 }
 
-.team_bg{
+.team_bg {
 
 	background-image: url(../img/team-bg.jpg);
 	background-position: center;
@@ -32,8 +32,8 @@
 	position: relative;
 	overflow: hidden;
 	border-radius: 20px;
+	
 	&:hover {
-
 		.team__item__text {
 			bottom: 0;
 		}
