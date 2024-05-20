@@ -5,7 +5,7 @@
 	position: relative;
 	overflow: hidden;
 	z-index: 5;
-	background: linear-gradient(90deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.4)) 100%, url('../img/hero/hero-bg.jpg') center / cover no-repeat #100028;
+	background: url('../img/hero/hero-bg.jpg') center / cover no-repeat, linear-gradient(90deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.4)) 100%;
 	background-attachment: fixed;
 	height: 100vh;
 	height: 100svh;
