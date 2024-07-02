@@ -8,7 +8,7 @@
 	border: none;
 	pointer-events: none;
 	z-index: 10;
-	background-color: #fff;
+	background-color: #111;
 	border-radius: 10px;
 
 	@keyframes slideInDown {
@@ -27,11 +27,16 @@
 
 	&__inner {
 		box-sizing: border-box;
-		padding: 20px;
+		padding: 55px;
+		
+		@media screen and (max-width: 640px) {
+			padding: 20px;
+		}
 	}
 
 	&__title {
 		margin-bottom: 30px;
+		color: #fff;
 
 		@media screen and (max-width: 640px) {
 			font-size: 28px;
