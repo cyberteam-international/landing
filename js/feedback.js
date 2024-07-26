@@ -61,9 +61,10 @@
 		dialog.addEventListener('click', ({currentTarget, target}) => {
 			if (currentTarget === target || target.classList.contains('dialog__close')) {
 				dialog.close();
-				scrollLockToggle();
 			}
 		});
+		
+		dialog.addEventListener("close", e => scrollLockToggle());
 	});
 	
 	document.querySelectorAll('[data-modal]').forEach(link => {
@@ -140,8 +141,10 @@
 		let once = false;
 
 		const errors = [];
-		const alerts = this.querySelector('.feedback__alerts');
-		const button = this.querySelector('button.feedback__submit')
+		const dialog = this.closest('dialog.dialog');
+		const inner = dialog.querySelector('.dialog__inner');
+		const alerts = dialog.querySelector('.feedback__alerts');
+		const button = dialog.querySelector('button.feedback__submit')
 		const formData = Object.fromEntries(new FormData(this).entries());
 		const setEmptyError = () => errors.includes(rules.common.empty) || errors.push(rules.common.empty);
 
@@ -182,7 +185,15 @@
 
 				if (response.ok) {
 					alerts.innerHTML = rules.common.success;
+					inner.classList.add('dialog__inner_success');
 					this.reset();
+				
+					setTimeout(() => {
+						inner.classList.remove('dialog__inner_success');
+						alerts.innerHTML = '';
+						dialog.close();
+					}, 3000);
+	
 				} else {
 					throw new Error(response.statusText);
 				}

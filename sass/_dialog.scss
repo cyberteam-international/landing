@@ -28,6 +28,25 @@
 	&__inner {
 		box-sizing: border-box;
 		padding: 55px;
+		position: relative;
+
+		&::after {
+			display: none;
+			align-items: center;
+			justify-content: center;
+			content: attr(data-thanks);
+			position: absolute;
+			z-index: 10;
+			inset: 0px;
+			font-size: 50px;
+			background-color: #111;
+			color: #fff;
+			font-weight: 600;
+		}
+
+		&_success::after {
+			display: flex;
+		}
 		
 		@media screen and (max-width: 640px) {
 			padding: 20px;
